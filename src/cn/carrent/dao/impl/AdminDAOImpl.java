@@ -42,7 +42,8 @@ public class AdminDAOImpl extends AbstractDAOImpl implements IAdminDAO {
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
 		query.setString("id", vo.getAid());
 		query.setString("psw", vo.getPassword());
-		return (query.uniqueResult()) != null;
+		Number num = (Number) query.uniqueResult();
+		return num.intValue() == 1;
 	}
 
 	@Override

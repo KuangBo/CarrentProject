@@ -53,7 +53,8 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
 		query.setInteger("id", vo.getCusid());
 		query.setString("psw", vo.getPassword());
-		return (query.uniqueResult()) != null;
+		Number num = (Number) query.uniqueResult();
+		return num.intValue() == 1;
 	}
 
 	@SuppressWarnings("unchecked")
