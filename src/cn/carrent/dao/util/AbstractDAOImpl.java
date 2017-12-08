@@ -1,10 +1,11 @@
 package cn.carrent.dao.util;
 
 import org.hibernate.Query;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import cn.carrent.dbc.HibernateSessionFactory;
 
-public class AbstractDAOImpl {
+public class AbstractDAOImpl extends HibernateDaoSupport {
 
 	/*
 	 * public boolean removeHandle(Set<?> ids, String tableName, String idName)

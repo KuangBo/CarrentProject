@@ -49,10 +49,10 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 
 	@Override
 	public boolean findLogin(Customer vo) throws Exception {
-		String hql = "SELECT COUNT(*) FROM Customer AS c WHERE c.cusid=? AND c.password=?";
+		String hql = "SELECT COUNT(*) FROM Customer AS c WHERE c.cusid=:id AND c.password=:psw";
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
-		query.setInteger(0, vo.getCusid());
-		query.setString(1, vo.getPassword());
+		query.setInteger("id", vo.getCusid());
+		query.setString("psw", vo.getPassword());
 		return (query.uniqueResult()) != null;
 	}
 

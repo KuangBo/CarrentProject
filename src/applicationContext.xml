@@ -30,8 +30,10 @@
 				<value>cn/carrent/pojo/Admin.hbm.xml</value>
 				<value>cn/carrent/pojo/Car.hbm.xml</value>
 				<value>cn/carrent/pojo/Customer.hbm.xml</value>
-				<value>cn/carrent/pojo/Trade.hbm.xml</value></list>
-		</property></bean>
+				<value>cn/carrent/pojo/Trade.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />

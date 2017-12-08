@@ -23,7 +23,7 @@ public class AdminDAOImpl extends AbstractDAOImpl implements IAdminDAO {
 
 	@Override
 	public Admin findById(String id) throws Exception {
-		return null;
+		return (Admin) HibernateSessionFactory.getSession().get(Admin.class, id);
 	}
 
 	@Override
@@ -38,13 +38,10 @@ public class AdminDAOImpl extends AbstractDAOImpl implements IAdminDAO {
 
 	@Override
 	public boolean findLogin(Admin vo) throws Exception {
-		String hql = "SELECT COUNT(*) FROM Admin AS a WHERE a.aid=? AND a.password=?";
-		System.out.println(HibernateSessionFactory.getSession().createQuery(hql));
+		String hql = "SELECT COUNT(*) FROM Admin AS a WHERE a.aid=:id AND a.password=:psw";
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
-		System.out.println("***************************");
-		query.setString(0, "admin");
-		query.setString(1, "hello");
-		System.out.println(((Admin) query.uniqueResult()));
+		query.setString("id", vo.getAid());
+		query.setString("psw", vo.getPassword());
 		return (query.uniqueResult()) != null;
 	}
 

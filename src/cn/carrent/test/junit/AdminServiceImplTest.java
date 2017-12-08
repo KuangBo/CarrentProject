@@ -11,8 +11,8 @@ public class AdminServiceImplTest {
 	@Test
 	public void testLogin() {
 		Admin vo = new Admin();
-		vo.setAid("admin");
-		vo.setPassword("hello");
+		vo.setAid("123");
+		vo.setPassword("123");
 		try {
 			TestCase.assertTrue(ServiceFactory.getIAdminServiceInstance().login(vo));
 		} catch (Exception e) {
