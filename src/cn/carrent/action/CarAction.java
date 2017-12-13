@@ -1,11 +1,8 @@
 package cn.carrent.action;
 
-import java.awt.print.Book;
-
-import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.carrent.pojo.Car;
 import cn.carrent.service.ICarService;
 
 public class CarAction extends ActionSupport {
@@ -47,11 +44,8 @@ public class CarAction extends ActionSupport {
 
 	// ≤È—Ø≥µ¡æ
 	public String queryCar() {
-
-//		if ("".equals(ISBN.trim()) && "".equals(bookName.trim()) && bookTypeId == -1 && "".equals(press.trim())
-//				&& "".equals(autho.trim())) {
-//			pb = bookService.findBookByPage(pageCode, pageSize);
-//		} else {
+		Car car=new Car(cid, brand, model, state, baseprice, carrent);
+//		pb=
 //			BookType bookType = new BookType();
 //			bookType.setBookTypeId(bookTypeId);
 //			Book book = new Book(ISBN, bookType, bookName, autho, press);

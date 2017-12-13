@@ -35,14 +35,14 @@ public class Car implements java.io.Serializable {
 
 	/** full constructor */
 	@SuppressWarnings("rawtypes")
-	public Car(Integer cid, String brand, String model, boolean state, double baseprice, double carrent, Set trades) {
+	public Car(Integer cid, String brand, String model, boolean state, double baseprice, double carrent) {
 		this.cid = cid;
 		this.brand = brand;
 		this.model = model;
 		this.state = state;
 		this.baseprice = baseprice;
 		this.carrent = carrent;
-		this.trades = trades;
+		//this.trades = trades;
 	}
 
 	// Property accessors
