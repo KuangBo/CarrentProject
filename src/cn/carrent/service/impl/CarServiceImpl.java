@@ -59,4 +59,12 @@ public class CarServiceImpl implements ICarService {
 		return map;
 	}
 
+	@Override
+	public Car findByCarId(Integer id) throws Exception {
+		Car car = DAOFactory.getICarDAOInstance().findById(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return car;
+	}
+
 }

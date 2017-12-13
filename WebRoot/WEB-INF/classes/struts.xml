@@ -5,4 +5,5 @@
 	<constant name="struts.objectFactory" value="spring" />
 	
  	<include file="struts2/struts-admin-login.xml"></include>
+ 	<include file="struts2/struts-trade-manage.xml"></include>
 </struts>    
