@@ -4,12 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.carrent.dao.ICarDAO;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.factory.DAOFactory;
 import cn.carrent.pojo.Car;
 import cn.carrent.service.ICarService;
 
 public class CarServiceImpl implements ICarService {
+	@SuppressWarnings("unused")
+	private ICarDAO carDAO;
+
+	public void setCarDAO(ICarDAO carDAO) {
+		this.carDAO = carDAO;
+	}
 
 	@Override
 	public boolean insert(Car vo) throws Exception {

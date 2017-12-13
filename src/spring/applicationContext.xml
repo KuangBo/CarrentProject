@@ -39,4 +39,6 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<import resource="applicationContext-admin-login.xml" />
 </beans>

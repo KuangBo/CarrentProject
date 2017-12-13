@@ -8,6 +8,7 @@ import cn.carrent.dao.IAdminDAO;
 import cn.carrent.dao.util.AbstractDAOImpl;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.pojo.Admin;
+import cn.carrent.util.MD5Util;
 
 public class AdminDAOImpl extends AbstractDAOImpl implements IAdminDAO {
 
@@ -41,7 +42,7 @@ public class AdminDAOImpl extends AbstractDAOImpl implements IAdminDAO {
 		String hql = "SELECT COUNT(*) FROM Admin AS a WHERE a.aid=:id AND a.password=:psw";
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
 		query.setString("id", vo.getAid());
-		query.setString("psw", vo.getPassword());
+		query.setString("psw", MD5Util.getMD5(vo.getPassword()));
 		Number num = (Number) query.uniqueResult();
 		return num.intValue() == 1;
 	}

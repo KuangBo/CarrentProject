@@ -4,12 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.carrent.dao.ICustomerDAO;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.factory.DAOFactory;
 import cn.carrent.pojo.Customer;
 import cn.carrent.service.ICustomerService;
 
 public class CustomerServiceImpl implements ICustomerService {
+	@SuppressWarnings("unused")
+	private ICustomerDAO cuntomerDAO;
+
+	public void setCuntomerDAO(ICustomerDAO cuntomerDAO) {
+		this.cuntomerDAO = cuntomerDAO;
+	}
 
 	@Override
 	public boolean insert(Customer vo) throws Exception {

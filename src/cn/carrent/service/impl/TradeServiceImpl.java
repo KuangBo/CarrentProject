@@ -4,12 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.carrent.dao.ITradeDAO;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.factory.DAOFactory;
 import cn.carrent.pojo.Trade;
 import cn.carrent.service.ITradeService;
 
 public class TradeServiceImpl implements ITradeService {
+	@SuppressWarnings("unused")
+	private ITradeDAO tradeDAO;
+
+	public void setTradeDAO(ITradeDAO tradeDAO) {
+		this.tradeDAO = tradeDAO;
+	}
 
 	@Override
 	public boolean insert(Trade vo) throws Exception {
