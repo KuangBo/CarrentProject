@@ -11,7 +11,6 @@ import org.apache.tomcat.util.http.parser.Authorization;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import cn.carrent.pojo.Admin;
 import cn.carrent.pojo.Car;
 import cn.carrent.pojo.Customer;
 import cn.carrent.pojo.Trade;
@@ -73,7 +72,6 @@ public class TradeManageAction extends ActionSupport {
 	 */
 	public String addTrade() {
 		Date putdate = new Date(System.currentTimeMillis());// 得到当前时间,作为上架时间
-		Admin admin = (Admin) ServletActionContext.getContext().getSession().get("admin");// 得到操作管理员
 		Trade trade = new Trade(id, customer, car, money, putdate, putdate, state);// 设置图书
 		boolean b = false;
 		try {
@@ -99,18 +97,39 @@ public class TradeManageAction extends ActionSupport {
 	 * 得到指定图书编号的图书信息 ajax请求该方法 返回该图书信息的json对象
 	 * 
 	 * @return
+	 * @throws Exception
 	 */
-	public String getTrade() {
+	public String getTrade() throws Exception {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("application/json;charset=utf-8");
 		Trade trade = new Trade();
 		trade.setId(id);
-		List<Trade> newTrade = null;
+		System.out.println(id);
+		Trade newTrade = tradeService.findByTradeId(id);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
+			public boolean apply(Object obj, String name, Object value) {
+				if (obj instanceof Authorization || name.equals("authorization")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+
+		JSONObject jsonObject = JSONObject.fromObject(newTrade, jsonConfig);
 		try {
-			newTrade = tradeService.list();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+			response.getWriter().print(jsonObject);
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
 		}
+		return null;
+	}
+
+	public String getAllTrade() throws Exception {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json;charset=utf-8");
+		List<Trade> newTrade = tradeService.list();
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
 			public boolean apply(Object obj, String name, Object value) {

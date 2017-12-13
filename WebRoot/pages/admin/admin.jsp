@@ -63,7 +63,7 @@
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
                     <li>
-                        <a href="${pageContext.request.contextPath}/pages/admin/tradeManageAction_getTrade.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书管理</a>
+                        <a href="${pageContext.request.contextPath}/pages/admin/tradeManageAction_getAllTrade.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/pages/admin/bookTypeManageAction_findBookTypeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书分类管理</a>

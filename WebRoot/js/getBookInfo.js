@@ -18,20 +18,17 @@ function getBookInfo(id){
 	ajax(
 		  {
 		  	method:'POST',
-    		url:'admin/bookManageAction_getBook.action',
-			params: "bookId=" + id,
+    		url:'admin/tradeManageAction_getAllTrade.action',
+			params: "id=" + id,
 			type:"json",
     		callback:function(data) {
-				$("#findISBN").val(data.ISBN);
-				$("#findBookName").val(data.bookName);
-				$("#findBookType").val(data.bookType.typeName);
-				$("#findAutho").val(data.autho);
-				$("#findPress").val(data.press);
-				$("#findPrice").val(data.price);
-				$("#findDescription").val(data.description);
-				$("#findNum").val(data.num);
-				$("#findAdmin").val(data.admin.name);
-				$("#findCurrentNum").val(data.currentNum);
+				$("#findISBN").val(data.id);
+				$("#findBookName").val(data.money);
+				$("#findBookType").val(data.putdate);
+				$("#findAutho").val(data.putdate);
+				$("#findPress").val(data.car);
+				$("#findPrice").val(data.customer);
+				$("#findDescription").val(data.state);
 			}
 		}
 										   
