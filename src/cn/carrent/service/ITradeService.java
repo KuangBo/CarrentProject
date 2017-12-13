@@ -12,6 +12,8 @@ public interface ITradeService {
 
 	public boolean remove(Integer id) throws Exception;
 
+	public Trade findByTradeId(Integer id) throws Exception;
+
 	public List<Trade> list() throws Exception;
 
 	public Map<String, Object> list(String column, String keyWord, Integer currentPage, Integer lineSize)

@@ -12,6 +12,8 @@ public interface ICustomerService {
 
 	public boolean remove(Integer id) throws Exception;
 
+	public Customer findByCusId(Integer id) throws Exception;
+
 	public List<Customer> list() throws Exception;
 
 	public Map<String, Object> list(String column, String keyWord, Integer currentPage, Integer lineSize)

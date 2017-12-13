@@ -59,4 +59,12 @@ public class TradeServiceImpl implements ITradeService {
 		return map;
 	}
 
+	@Override
+	public Trade findByTradeId(Integer id) throws Exception {
+		Trade trade = DAOFactory.getITradeDAOInstance().findById(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return trade;
+	}
+
 }

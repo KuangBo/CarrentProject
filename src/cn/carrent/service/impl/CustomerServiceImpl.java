@@ -67,4 +67,12 @@ public class CustomerServiceImpl implements ICustomerService {
 		return flag;
 	}
 
+	@Override
+	public Customer findByCusId(Integer id) throws Exception {
+		Customer cus = DAOFactory.getICustomerDAOInstance().findById(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return cus;
+	}
+
 }
