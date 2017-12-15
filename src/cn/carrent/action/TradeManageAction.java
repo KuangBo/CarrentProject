@@ -13,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import cn.carrent.pojo.Car;
 import cn.carrent.pojo.Customer;
+import cn.carrent.pojo.PageBean;
 import cn.carrent.pojo.Trade;
 import cn.carrent.service.ITradeService;
 import net.sf.json.JSONObject;
@@ -23,6 +24,7 @@ import net.sf.json.util.PropertyFilter;
 public class TradeManageAction extends ActionSupport {
 
 	private ITradeService tradeService;
+	private int pageCode;
 
 	public void setTradeService(ITradeService tradeService) {
 		this.tradeService = tradeService;
@@ -104,7 +106,6 @@ public class TradeManageAction extends ActionSupport {
 		response.setContentType("application/json;charset=utf-8");
 		Trade trade = new Trade();
 		trade.setId(id);
-		System.out.println(id);
 		Trade newTrade = tradeService.findByTradeId(id);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
@@ -124,6 +125,26 @@ public class TradeManageAction extends ActionSupport {
 			throw new RuntimeException(e.getMessage());
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String findTradeByPage() throws Exception {
+		// 获取页面传递过来的当前页码数
+		if (pageCode == 0) {
+			pageCode = 1;
+		}
+		// 给pageSize,每页的记录数赋值
+		int pageSize = 5;
+		String column = "id";
+		String keyWord = "";
+		PageBean<Trade> pb = tradeService.listSplit(pageCode, pageSize, column, keyWord);
+		if (pb != null) {
+			pb.setUrl("findTradeByPage.action?");
+		}
+		// 存入request域中
+		ServletActionContext.getRequest().setAttribute("pb", pb);
+		System.out.println(pb);
+		return "success";
 	}
 
 	public String getAllTrade() throws Exception {

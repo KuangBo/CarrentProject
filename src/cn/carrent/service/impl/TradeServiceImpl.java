@@ -7,6 +7,7 @@ import java.util.Map;
 import cn.carrent.dao.ITradeDAO;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.factory.DAOFactory;
+import cn.carrent.pojo.PageBean;
 import cn.carrent.pojo.Trade;
 import cn.carrent.service.ITradeService;
 
@@ -65,6 +66,22 @@ public class TradeServiceImpl implements ITradeService {
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return trade;
+	}
+
+	@Override
+	public PageBean<Trade> findTradeByPage(String column, String keyWord, int pageCode, int pageSize) {
+		PageBean<Trade> trades = DAOFactory.getITradeDAOInstance().findAllTrades(column, keyWord, pageCode, pageSize);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return trades;
+	}
+
+	@Override
+	public PageBean<Trade> listSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
+		PageBean<Trade> all = DAOFactory.getITradeDAOInstance().findAllSplits(currentPage, lineSize, column, keyWord);
+		HibernateSessionFactory.closeSession();
+		return all;
 	}
 
 }

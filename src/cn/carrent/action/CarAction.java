@@ -2,7 +2,6 @@ package cn.carrent.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import cn.carrent.pojo.Car;
 import cn.carrent.service.ICarService;
 
 public class CarAction extends ActionSupport {
@@ -42,20 +41,21 @@ public class CarAction extends ActionSupport {
 		this.carrent = carrent;
 	}
 
-	// ²éÑ¯³µÁ¾
+	// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	public String queryCar() {
-		Car car=new Car(cid, brand, model, state, baseprice, carrent);
-//		pb=
-//			BookType bookType = new BookType();
-//			bookType.setBookTypeId(bookTypeId);
-//			Book book = new Book(ISBN, bookType, bookName, autho, press);
-//			pb = bookService.queryBook(book, pageCode, pageSize);
-//		}
-//		if (pb != null) {
-//			pb.setUrl("queryBook.action?ISBN=" + ISBN + "&bookName=" + bookName + "&bookTypeId=" + bookTypeId
-//					+ "&press=" + press + "&autho=" + autho + "&");
-//		}
-//		ServletActionContext.getRequest().setAttribute("pb", pb);
+		// Car car=new Car(cid, brand, model, state, baseprice, carrent);
+		// pb=
+		// BookType bookType = new BookType();
+		// bookType.setBookTypeId(bookTypeId);
+		// Book book = new Book(ISBN, bookType, bookName, autho, press);
+		// pb = bookService.queryBook(book, pageCode, pageSize);
+		// }
+		// if (pb != null) {
+		// pb.setUrl("queryBook.action?ISBN=" + ISBN + "&bookName=" + bookName +
+		// "&bookTypeId=" + bookTypeId
+		// + "&press=" + press + "&autho=" + autho + "&");
+		// }
+		// ServletActionContext.getRequest().setAttribute("pb", pb);
 		return "success";
 	}
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" import="cn.carrent.pojo.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags"   prefix="s"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -27,7 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                 
                 
-       <script src="${pageContext.request.contextPath}/js/getAllBookTypes.js"></script>
        			 <script src="${pageContext.request.contextPath}/js/addBook.js"></script>
                 
                  <script src="${pageContext.request.contextPath}/js/updateBook.js"></script>
@@ -80,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
                     <li  class="active">
-                        <a href="${pageContext.request.contextPath}/pages/admin/bookManageAction_findBookByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书管理</a>
+                        <a href="${pageContext.request.contextPath}/pages/admin/bookManageAction_findTradeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/pages/admin/bookTypeManageAction_findBookTypeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书分类管理</a>
@@ -216,15 +215,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <table id="data_list" class="table table-hover table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>图书ISBN号</th>
-                                <th>图书类型</th>
-                                <th>图书名称</th>
-                                <th>作者名称</th>
-                                 <th>出版社</th>
-                                <th>上架日期</th>
-                                <th>总数量</th>
-                                <th>在馆数量</th>
-                                <th>价格</th>
+                                <th>订单编号</th>
+                                <th>交易金额</th>
+                                <th>开始日期</th>
+                                <th>结束日期</th>
+                                <th>顾客</th>
+                                <th>车辆</th>
+                                <th>状态</th>
                                 <th>操作</th>
                                 
                             </tr>
@@ -233,19 +230,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             
                             <!---在此插入信息-->
                             <s:if test="#request.pb.beanList!=null">
-                            <s:iterator value="#request.pb.beanList" var="book">
+                            <s:iterator value="#request.pb.beanList" var="trade">
                              <tbody>
-	                         	   <td><s:property value="#book.ISBN"/></td>
-	                                <td><s:property value="#book.bookType.typeName"/></td>
-	                                <td><s:property value="#book.bookName"/></td>
-	                                <td><s:property value="#book.autho"/></td>
-	                                 <td><s:property value="#book.press"/></td>
-	                                  <td><s:date name="#book.putdate" format="yyyy-MM-dd" /></td>
-	                                    <td><s:property value="#book.num"/></td>
-	                                    <td><s:property value="#book.currentNum"/></td>
-	                                    <td><s:property value="#book.price"/></td>
+	                         	   <td><s:property value="#trade.id"/></td>
+	                                <td><s:property value="#trade.money"/></td>
+	                                <td><s:property value="#trade.startdate"/></td>
+	                                <td><s:property value="#trade.enddate"/></td>
+	                                 <td><s:property value="#trade.customer.cusid"/></td>
+	                                    <td><s:property value="#trade.car.cid"/></td>
+	                                    <td><s:property value="#trade.state"/></td>
 	                                <td>
-	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getBookInfo(<s:property value="#book.bookId"/>)" >查看</button>
+	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getBookInfo(<s:property value="#trade.id"/>)" >查看</button>
 	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" id="btn_update" onclick="updateBook(<s:property value="#book.bookId"/>)">修改</button>
 	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteBook(<s:property value="#book.bookId"/>)">删除</button>
 	                                	<button type="button" class="btn btn-success btn-xs" onclick="addBookNum(<s:property value="#book.bookId"/>,<s:property value="#book.ISBN"/>)"  data-toggle="modal" data-target="#addNumModal">新增</button>
@@ -263,71 +258,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                <td>暂无数据</td> 
 	                                <td>暂无数据</td> 
 	                                <td>暂无数据</td> 
-	                                <td>暂无数据</td>  
-	                                <td>暂无数据</td>                                            
                           	  </tbody>
                             </s:else>
                             
                         </table>
                         
                         
-                    <s:if test="#request.pb!=null">
-					                    
-					                    		   <%-- 定义页码列表的长度，5个长 --%>
-								   <c:choose>
-									<%-- 第一条：如果总页数<=5，那么页码列表为1 ~ totaPage 从第一页到总页数--%>
-									<%--如果总页数<=5的情况 --%>
-									  <c:when test="${pb.totaPage <= 5 }">
-									    <c:set var="begin" value="1"/>
-									    <c:set var="end" value="${pb.totaPage }"/>
-									  </c:when>
-									  <%--总页数>5的情况 --%>
-									  <c:otherwise>
-										  	<%-- 第二条：按公式计算，让列表的头为当前页-2；列表的尾为当前页+2 --%>
-										  	<c:set var="begin" value="${pb.pageCode-2 }"/>
-										    <c:set var="end" value="${pb.pageCode+2 }"/>
-										    
-										    <%-- 第三条：第二条只适合在中间，而两端会出问题。这里处理begin出界！ --%>
-										    <%-- 如果begin<1，那么让begin=1，相应end=5 --%>
-										    <c:if test="${begin<1 }">
-										    	<c:set var="begin" value="1"/>
-										    	<c:set var="end" value="5"/>
-										    </c:if>
-										    <%-- 第四条：处理end出界。如果end>tp，那么让end=tp，相应begin=tp-4 --%>
-										    <c:if test="${end>pb.totaPage }">
-										    	<c:set var="begin" value="${pb.totaPage-4 }"/>
-										    	<c:set var="end" value="${pb.totaPage }"/>
-										    </c:if>
-									  </c:otherwise>
-								</c:choose>
-                    
-                        
-                        <div class="pull-right"><!--右对齐--->
-                           <ul class="pagination">
-                           <li class="disabled"><a href="#">第<s:property value="#request.pb.pageCode"/>页/共<s:property value="#request.pb.totaPage"/>页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/admin/bookManageAction_${pb.url }pageCode=1">首页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/admin/bookManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
-                           <%-- 循环显示页码列表 --%>
-								<c:forEach begin="${begin }" end="${end }" var="i">
-								  <c:choose>
-								  <%--如果是当前页则设置无法点击超链接 --%>
-								  	<c:when test="${i eq pb.pageCode }">							  	
-								  			<li class="active"><a>${i }</a><li>							 
-								  	</c:when>
-								  	<c:otherwise>
-								  		<li><a href="${pageContext.request.contextPath}/admin/bookManageAction_${pb.url }pageCode=${i}">${i}</a></li>
-								  	</c:otherwise>
-								  </c:choose>
-								</c:forEach>
-				        	   <%--如果当前页数没到总页数，即没到最后一页,则需要显示下一页 --%>
-							  <c:if test="${pb.pageCode < pb.totaPage }">
-								  <li><a href="${pageContext.request.contextPath}/admin/bookManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
-							</c:if>
-							<%--否则显示尾页 --%>
-							<li><a href="${pageContext.request.contextPath}/admin/bookManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
-							</ul>
-                           </div>
-                    </s:if>           
+                      
                     </div>
                 </div>
             </div>
@@ -408,92 +345,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														&times;
 													</button>
 													<h4 class="modal-title" id="findModalLabel">
-														查看图书信息
+														查看订单信息
 													</h4>
 												</div>
 												<div class="modal-body">
 												
 										<!---------------------表单-------------------->
 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">ISBN号</label>
+											<label for="firstname" class="col-sm-3 control-label">订单编号</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findISBN" readonly="readonly">
+													<input type="text" class="form-control" id="findId" readonly="readonly">
 												
 												</div>
 										</div>
 										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">图书名称</label>
+											<label for="firstname" class="col-sm-3 control-label">交易金额</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findBookName"  readonly="readonly">
+													<input type="text" class="form-control" id="findMoney"  readonly="readonly">
 												
 												</div>
 										</div>
 											
 										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">图书类型</label>
+											<label for="firstname" class="col-sm-3 control-label">开始日期</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control" id="findBookType"  readonly="readonly">
+												<input type="text" class="form-control" id="findStart"  readonly="readonly">
 												
 											</div>
 										</div>
 											
 										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">作者名称</label>
+											<label for="firstname" class="col-sm-3 control-label">结束日期</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findAutho"  readonly="readonly">
+													<input type="text" class="form-control" id="findEnd"  readonly="readonly">
 												
 												</div>
 										</div>
 										
 										
 										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">出版社</label>
+											<label for="firstname" class="col-sm-3 control-label">顾客</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findPress"  readonly="readonly">
+													<input type="text" class="form-control" id="findCustomer"  readonly="readonly">
 												
 												</div>
 										</div>
 										
 										
 										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">总数量</label>
+											<label for="firstname" class="col-sm-3 control-label">车辆</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findNum"  readonly="readonly">
+													<input type="text" class="form-control" id="findCar"  readonly="readonly">
 												
 												</div>
 										</div>
 										
 										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">当前数量</label>
+											<label for="firstname" class="col-sm-3 control-label">状态</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findCurrentNum"  readonly="readonly">
+													<input type="text" class="form-control" id="findState"  readonly="readonly">
 												
 												</div>
 										</div>
 										
 										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">价格</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findPrice"  readonly="readonly">
-												
-												</div>
-										</div>
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">操作管理员</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findAdmin"  readonly="readonly">
-												
-												</div>
-										</div>
-										
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">简介</label>
-												<div class="col-sm-7">
-												<textarea class="form-control" rows="3" id="findDescription" readonly="readonly"></textarea>
-												</div>
-										</div>
 										
 										<!---------------------表单-------------------->
 									</div>

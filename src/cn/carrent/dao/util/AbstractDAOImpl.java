@@ -1,7 +1,7 @@
 package cn.carrent.dao.util;
 
 import org.hibernate.Query;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.carrent.dbc.HibernateSessionFactory;
 

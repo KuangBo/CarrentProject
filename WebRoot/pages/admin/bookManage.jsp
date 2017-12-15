@@ -27,7 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                 
                 
-       <script src="${pageContext.request.contextPath}/js/getAllBookTypes.js"></script>
        			 <script src="${pageContext.request.contextPath}/js/addBook.js"></script>
                 
                  <script src="${pageContext.request.contextPath}/js/updateBook.js"></script>
@@ -80,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
                     <li  class="active">
-                        <a href="${pageContext.request.contextPath}/pages/admin/tradeManageAction_getTrade.action"><i class="glyphicon glyphicon-chevron-right"></i> 租车管理</a>
+                        <a href="${pageContext.request.contextPath}/pages/admin/bookManageAction_findTradeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/pages/admin/bookTypeManageAction_findBookTypeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 图书分类管理</a>
@@ -107,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <a href="${pageContext.request.contextPath}/pages/admin/readerManageAction_findReaderByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 读者管理</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/pages/admin/readerTypeManageAction_getAllReaderType.action"><i class="glyphicon glyphicon-chevron-right"></i> 系统设置</a>
+                        <a href="${pageContext.request.contextPath}/admin/readerTypeManageAction_getAllReaderType.action"><i class="glyphicon glyphicon-chevron-right"></i> 系统设置</a>
                     </li>
                 </ul>
             </div>
@@ -216,15 +215,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <table id="data_list" class="table table-hover table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>图书ISBN号</th>
-                                <th>图书类型</th>
-                                <th>图书名称</th>
-                                <th>作者名称</th>
-                                 <th>出版社</th>
-                                <th>上架日期</th>
-                                <th>总数量</th>
-                                <th>在馆数量</th>
-                                <th>价格</th>
+                                <th>订单编号</th>
+                                <th>交易金额</th>
+                                <th>开始日期</th>
+                                <th>结束日期</th>
+                                <th>顾客</th>
+                                <th>车辆</th>
+                                <th>状态</th>
                                 <th>操作</th>
                                 
                             </tr>
@@ -233,17 +230,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             
                             <!---在此插入信息-->
                             <s:if test="#request.pb.beanList!=null">
-                            <s:iterator value="#request.pb.beanList" var="book">
+                            <s:iterator value="#request.pb.beanList" var="trade">
                              <tbody>
-	                         	   <td><s:property value="#book.ISBN"/></td>
-	                                <td><s:property value="#book.bookType.typeName"/></td>
-	                                <td><s:property value="#book.bookName"/></td>
-	                                <td><s:property value="#book.autho"/></td>
-	                                 <td><s:property value="#book.press"/></td>
-	                                  <td><s:date name="#book.putdate" format="yyyy-MM-dd" /></td>
-	                                    <td><s:property value="#book.num"/></td>
-	                                    <td><s:property value="#book.currentNum"/></td>
-	                                    <td><s:property value="#book.price"/></td>
+	                         	   <td><s:property value="#trade.id"/></td>
+	                                <td><s:property value="#trade.money"/></td>
+	                                <td><s:property value="#trade.startdate"/></td>
+	                                <td><s:property value="#trade.enddate"/></td>
+	                                 <td><s:property value="#trade.customer.cusid"/></td>
+	                                    <td><s:property value="#trade.car.cid"/></td>
+	                                    <td><s:property value="#trade.state"/></td>
 	                                <td>
 	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getBookInfo(<s:property value="#book.bookId"/>)" >查看</button>
 	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" id="btn_update" onclick="updateBook(<s:property value="#book.bookId"/>)">修改</button>
@@ -263,15 +258,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                <td>暂无数据</td> 
 	                                <td>暂无数据</td> 
 	                                <td>暂无数据</td> 
-	                                <td>暂无数据</td>  
-	                                <td>暂无数据</td>                                            
                           	  </tbody>
                             </s:else>
                             
                         </table>
                         
                         
-                    <s:if test="#request.pb!=null">
+                  <s:if test="#request.pb!=null">
 					                    
 					                    		   <%-- 定义页码列表的长度，5个长 --%>
 								   <c:choose>

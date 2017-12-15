@@ -1,27 +1,29 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="cn.carrent.pojo.*"%>
+<%@ page import="cn.carrent.util.*"%>
+<%@ page import="cn.carrent.factory.*"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String personUrl = basePath + "personal.jsp";
+String indexUrl = basePath + "index.jsp";
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<base href="<%=basePath%>">
 <title>Car Rental An Auto mobile Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Car Rental Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } 
+		function hideURLbar(){ window.scrollTo(0,1); }
 		function carRental(){
 			var a=document.getElementById("carRental1");
 			var b=document.getElementById("carRental2");
 			a.style.display="none";
 			b.style.display="block";
 		}
-		function carRental1(){
+			function carRental1(){
 			var a=document.getElementById("carRental3");
 			var b=document.getElementById("carRental4");
 			a.style.display="none";
@@ -61,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="css/jquery.flipster.css">
 		<link rel='stylesheet' href='css/dscountdown.css' type='text/css' media='all' />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="css/font-awesome.css" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
@@ -77,7 +79,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </style>
 </head>
 <body>
-
+<%
+    	request.setCharacterEncoding("UTF-8");
+%>
 <!-- banner -->
 <div class="banner-w3ls" id="home">
 <!-- header -->
@@ -90,16 +94,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div class="header_right">
 		      <div class="w3ls-social-icons">
-					<!--<a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
-					<a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
-					<a class="pinterest" href="#"><i class="fa fa-google-plus"></i></a>
-					<a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>-->
-					<a style="color: white;" href="Regsiter_login/Register.html">注册</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a style="color: white;" href="Regsiter_login/login_in.html">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a style="color: white;" href="personal.html">个人信息</a>
-					<!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a style="color: white;" href="Regsiter_login/login_in.html">Username</a>
-					<a style="color: white;" href="Regsiter_login/login_in.html">余额</a>-->
+<%
+	String cusname = null;
+	if(session.getAttribute("cusid") != null) {
+		int cusid = (Integer)session.getAttribute("cusid");
+		Customer cus = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
+		cusname = cus.getCusname();
+	}
+	if(cusname != null){
+%>
+	<a style="color: white;">欢迎您，<%=cusname %></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a style="color: white;" href="<%=indexUrl%>">退出</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<!-- <a style="color: white;" href="personal.jsp?username=<%=cusname%>">个人信息</a> -->
+<%
+	} else {
+ %>
+	<a style="color: white;" href="Register_login/Register.jsp">注册</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a style="color: white;" href="Register_login/login_in.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%
+	}
+ %>
 		      </div>
 
 		</div>
@@ -129,7 +143,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!--<li><a href="#contact" class="hvr-underline-from-center scroll">Contact Us</a></li>-->
 						</ul>
 					</div>
-					<div class="clearfix"> </div>	
+					<div class="clearfix"> </div>
 				</nav>
 
 		</div>
@@ -137,38 +151,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<h2>New car</h2>
 		<h3>We are ready to launch our New Car</h3>
 			<!--timer-->
-						<div class="agileits-timer"> 
+						<div class="agileits-timer">
 							<div class="main-title">
 						     <div class="demo2"></div>
 						</div>
 						</div>
-						
+
 						<!--//timer-->
 						<div class="callbacks_container">
 						<ul class="rslides" id="slider3">
 							<li>
 								<div class="w3l_banner_info">
 									 <h4>Find Best Rental Car</h4>
-									
+
 								</div>
 							</li>
 							<li>
 								<div class="w3l_banner_info">
 									<h4>A Reliable way to travel!</h4>
-									
+
 								</div>
 							</li>
 							<li>
 								<div class="w3l_banner_info">
 									 <h4>Save time when you arrive!</h4>
-								
-									
+
+
 								</div>
 							</li>
 							<li>
 								<div class="w3l_banner_info">
 									<h4>Rent for a month. Save $70!</h4>
-									
+
 								</div>
 							</li>
 						</ul>
@@ -183,15 +197,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<section>
 					<div class="modal-body">
-					       <h3 class="agileinfo_sign">BEFRIEND</h3>	
+					       <h3 class="agileinfo_sign">BEFRIEND</h3>
 						<img src="images/g1.jpg" alt=" " class="img-responsive" />
-						<p>Ut enim ad minima veniam, quis nostrum 
-							exercitationem ullam corporis suscipit laboriosam, 
+						<p>Ut enim ad minima veniam, quis nostrum
+							exercitationem ullam corporis suscipit laboriosam,
 							nisi ut aliquid ex ea commodi consequatur.
 							<i>" Quis autem vel eum iure reprehenderit qui in ea voluptate velit .</i></p>
 					</div>
@@ -209,7 +223,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						 <p class="sub_para">It’s time to drive</p>
 						  <div class="inner_w3l_agile_grids">
 						<div class="sreen-gallery-cursual">
-							
+
 						       <div id="owl-demo" class="owl-carousel">
 							      <div class="item-owl">
 					                		<div class="test-review">
@@ -289,7 +303,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  </div>
  </div>
 <!-- //banner-bottom -->
-									
+
 
 <!-- about -->
 <div class="about" id="about">
@@ -304,7 +318,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, rds which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
 			</div>
 			<div class="col-md-6 about-right-w3layouts">
-		<iframe src="https://player.vimeo.com/video/9677468"  frameborder="0" ></iframe>
+		<iframe src=""  frameborder="0" ></iframe>
 
 
 			</div>
@@ -328,7 +342,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<h5>Deal 1</h5>
 							<p>Per day<span>$</span>300.00</p>
 							<p>Mon, Tue, Thu, Fri, Sat</p>
-							
+
 						</div>
 						<img src="images/s3.jpg" alt=" " class="img-responsive">
 					</div>
@@ -384,10 +398,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
 								<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
 								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-								
+
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 		  	</li>
@@ -408,7 +422,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 	  		</li>
@@ -429,7 +443,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 	  		</li>
@@ -448,10 +462,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
 								<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
 								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-								
+
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 	  			</li>
@@ -470,19 +484,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
 								<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
 								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-								
+
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 	  			</li>
 		  </ul>
 		</div>
-<!-- End Flipster List -->	
-		
-			</div>	
-			
+<!-- End Flipster List -->
+
+			</div>
+
 	</div>
 </div>
 <!--//team-section-->
@@ -495,7 +509,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 		<div class="inner_w3l_agile_grids">
 			<div class="col-md-4 gal-gd wow fadeInLeft animated" data-wow-delay=".5s">
-				<a href="#image-1" >
+				<a href="<%=indexUrl %>#image-1" >
 					<div class="nd-wrap nd-style-8">
 						<img src="images/g1.jpg" class="img-responsive" alt=" " />
 						<div class="nd-content">
@@ -508,17 +522,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="nd-icon">
 							<i class="glyphicon glyphicon-search"></i>
 						</span>
-					
-					</div>					
-				</div>				
+
+					</div>
+				</div>
 			</div>
 			</div>
 				</a>
-				
+
 
 			</div>
 			<div class="col-md-4 gal-gd wow fadeInUp animated" data-wow-delay=".5s">
-				<a href="#image-2" >
+				<a href="<%=indexUrl %>#image-2" >
 					<div class="nd-wrap nd-style-8">
 						<img src="images/g2.jpg" class="img-responsive" alt=" " />
 						<div class="nd-content">
@@ -531,17 +545,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="nd-icon">
 							<i class="glyphicon glyphicon-search"></i>
 						</span>
-					
-					</div>					
-				</div>				
+
+					</div>
+				</div>
 			</div>
 			</div>
 				</a>
-				
+
 
 			</div>
 			<div class="col-md-4 gal-gd wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="#image-3" >
+				<a href="<%=indexUrl %>#image-3" >
 					<div class="nd-wrap nd-style-8">
 						<img src="images/g3.jpg" class="img-responsive" alt=" " />
 						<div class="nd-content">
@@ -554,57 +568,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="nd-icon">
 							<i class="glyphicon glyphicon-search"></i>
 						</span>
-					
-					</div>					
-				</div>				
+
+					</div>
+				</div>
 			</div>
 			</div>
 				</a>
 			</div>
-			<!--<div class="col-md-6 gal-gd-sec wow fadeInLeft animated" data-wow-delay=".5s">
-				<a href="#image-4" >
-					<div class="nd-wrap nd-style-8">
-						<img src="images/g4.jpg" class="img-responsive" alt=" " />
-						<div class="nd-content">
-				<div class="nd-content_inner">
-					<div class="nd-content_inner1">
-						<h4 class="nd-title">Car Rental</h4>
-						<span class="nd-icon">
-							<i class="glyphicon glyphicon-link"></i>
-						</span>
-						<span class="nd-icon">
-							<i class="glyphicon glyphicon-search"></i>
-						</span>
-					
-					</div>					
-				</div>				
-			</div>
-			</div>
-				</a>
-			</div>
-			<div class="col-md-6 gal-gd-sec wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="#image-5" >
-					<div class="nd-wrap nd-style-8">
-						<img src="images/g5.jpg" class="img-responsive" alt=" " />
-						<div class="nd-content">
-				<div class="nd-content_inner">
-					<div class="nd-content_inner1">
-						<h4 class="nd-title">Car Rental</h4>
-						<span class="nd-icon">
-							<i class="glyphicon glyphicon-link"></i>
-						</span>
-						<span class="nd-icon">
-							<i class="glyphicon glyphicon-search"></i>
-						</span>
-					
-					</div>					
-				</div>				
-			</div>
-			</div>
-				</a>
-			</div>-->
 			<div class="col-md-4 gal-gd wow fadeInLeft animated" data-wow-delay=".5s">
-				<a href="#image-6">
+				<a href="<%=indexUrl %>#image-6">
 					<div class="nd-wrap nd-style-8">
 						<img src="images/g6.jpg" class="img-responsive" alt=" " />
 						<div class="nd-content">
@@ -617,15 +589,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="nd-icon">
 							<i class="glyphicon glyphicon-search"></i>
 						</span>
-					
-					</div>					
-				</div>				
+
+					</div>
+				</div>
 			</div>
 			</div>
 				</a>
 			</div>
 			<div class="col-md-4 gal-gd wow fadeInDown animated" data-wow-delay=".5s">
-				<a href="#image-7">
+				<a href="<%=indexUrl %>#image-7">
 					<div class="nd-wrap nd-style-8">
 						<img src="images/g7.jpg" class="img-responsive" alt=" " />
 						<div class="nd-content">
@@ -638,15 +610,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="nd-icon">
 							<i class="glyphicon glyphicon-search"></i>
 						</span>
-					
-					</div>					
-				</div>				
+
+					</div>
+				</div>
 			</div>
 			</div>
 				</a>
 			</div>
 			<div class="col-md-4 gal-gd wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="#image-8">
+				<a href="<%=indexUrl %>#image-8">
 					<div class="nd-wrap nd-style-8">
 						<img src="images/g8.jpg" class="img-responsive" alt=" " />
 						<div class="nd-content">
@@ -659,9 +631,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="nd-icon">
 							<i class="glyphicon glyphicon-search"></i>
 						</span>
-					
-					</div>					
-				</div>				
+
+					</div>
+				</div>
 			</div>
 			</div>
 				</a>
@@ -673,62 +645,62 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //gallery -->
 	<div class="lb-overlay" id="image-1">
 		<img src="images/g1.jpg" alt="image1" />
-		<div class="gal-info" id="carRental1">							
+		<div class="gal-info" id="carRental1">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="carRental()" ></a>
+			<a><input  type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=1000'" ></a>
 				<p >Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,
 					  the world famous speed racer and the epoch-making car designer.</p>
 		</div>
-		<div class="gal-info" id="carRental2" style="display: none;">							
+		<div class="gal-info" id="carRental2" style="display: none;">
 			<!--<h3>Car Rental</h3>-->
-			<a href="#gallery" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="personal.jsp" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#gallery"  style="color:white;font-size: 30px;">Cancel</a>
 		</div>
-		<a href="#gallery" class="lb-close" >Close</a>
+		<a href="<%=indexUrl %>#gallery" class="lb-close" >Close</a>
 	</div>
 	<div class="lb-overlay" id="image-2">
 		<img src="images/g2.jpg" alt="image1" />
-		<div class="gal-info" id="carRental3">							
+		<div class="gal-info" id="carRental3">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="carRental1()" ></a>
+			<a><input type="button"  value="Car Rental" onclick="window.location.href='personal.jsp?carid=1001'"  ></a>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,the world famous speed racer and the epoch-making car designer</p>
 		</div>
-		<div class="gal-info" id="carRental4" style="display: none;">							
+		<div class="gal-info" id="carRental4" style="display: none;">
 			<!--<h3>Car Rental</h3>-->
 			<a href="#gallery" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#gallery"  style="color:white;font-size: 30px;">Cancel</a>
 		</div>
-		<a href="#gallery" class="lb-close">Close</a>
+		<a href="<%=indexUrl %>#gallery" class="lb-close">Close</a>
 	</div>
 	<div class="lb-overlay" id="image-3">
 		<img src="images/g3.jpg" alt="image1" />
-		<div class="gal-info" id="carRental5">							
+		<div class="gal-info" id="carRental5">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="carRental2()" ></a>
+			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=1002'"></a>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,the world famous speed racer and the epoch-making car designer</p>
 		</div>
-		<div class="gal-info" id="carRental6" style="display: none;">							
+		<div class="gal-info" id="carRental6" style="display: none;">
 			<!--<h3>Car Rental</h3>-->
 			<a href="#gallery" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#gallery"  style="color:white;font-size: 30px;">Cancel</a>
 		</div>
-		<a href="#gallery" class="lb-close">Close</a>
+		<a href="<%=indexUrl %>#gallery" class="lb-close">Close</a>
 	</div>
 	<!--<div class="lb-overlay" id="image-4">
 		<img src="images/g4.jpg" alt="image1" />
-		<div class="gal-info">							
+		<div class="gal-info">
 			<h3>Car Rental</h3>
-				<p>Neque porro quisquam est, qui dolorem ipsum 
-					quia dolor sit amet, consectetur, adipisci velit, 
+				<p>Neque porro quisquam est, qui dolorem ipsum
+					quia dolor sit amet, consectetur, adipisci velit,
 					sed quia non numquam eius modi tempora incidunt ut
 					labore et dolore magnam aliquam quaerat voluptatem.</p>
 		</div>
@@ -736,10 +708,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<div class="lb-overlay" id="image-5">
 		<img src="images/g5.jpg" alt="image1" />
-		<div class="gal-info">							
+		<div class="gal-info">
 			<h3>Car Rental</h3>
-				<p>Neque porro quisquam est, qui dolorem ipsum 
-					quia dolor sit amet, consectetur, adipisci velit, 
+				<p>Neque porro quisquam est, qui dolorem ipsum
+					quia dolor sit amet, consectetur, adipisci velit,
 					sed quia non numquam eius modi tempora incidunt ut
 					labore et dolore magnam aliquam quaerat voluptatem.</p>
 		</div>
@@ -747,106 +719,62 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>-->
 	<div class="lb-overlay" id="image-6">
 		<img src="images/g6.jpg" alt="image1" />
-		<div class="gal-info" id="carRental7">							
+		<div class="gal-info" id="carRental7">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="carRental3()" ></a>
+			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=2000'" ></a>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,the world famous speed racer and the epoch-making car designer</p>
 		</div>
-		<div class="gal-info" id="carRental8" style="display: none;">							
+		<div class="gal-info" id="carRental8" style="display: none;">
 			<!--<h3>Car Rental</h3>-->
 			<a href="#gallery" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#gallery"  style="color:white;font-size: 30px;">Cancel</a>
 		</div>
-		<a href="#gallery" class="lb-close">Close</a>
+		<a href="<%=indexUrl %>#gallery" class="lb-close">Close</a>
 	</div>
 	<div class="lb-overlay" id="image-7">
 		<img src="images/g7.jpg" alt="image1" />
-		<div class="gal-info" id="carRental9">							
+		<div class="gal-info" id="carRental9">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="carRental4()" ></a>
+			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=3000'"  ></a>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,the world famous speed racer and the epoch-making car designer</p>
 		</div>
-		<div class="gal-info" id="carRental10" style="display: none;">							
+		<div class="gal-info" id="carRental10" style="display: none;">
 			<!--<h3>Car Rental</h3>-->
 			<a href="#gallery" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#gallery"  style="color:white;font-size: 30px;">Cancel</a>
 		</div>
-		<a href="#gallery" class="lb-close">Close</a>
+		<a href="<%=indexUrl %>#gallery" class="lb-close">Close</a>
 	</div>
 	<div class="lb-overlay" id="image-8">
 		<img src="images/g8.jpg" alt="image1" />
-		<div class="gal-info" id="carRental11">							
+		<div class="gal-info" id="carRental11">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="carRental5()" ></a>
+			<a"><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=3001'"  ></a>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,the world famous speed racer and the epoch-making car designer</p>
 		</div>
-		<div class="gal-info" id="carRental12" style="display: none;">							
+		<div class="gal-info" id="carRental12" style="display: none;">
 			<!--<h3>Car Rental</h3>-->
 			<a href="#gallery" style="color:white;font-size: 30px;" >Confirm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#gallery"  style="color:white;font-size: 30px;">Cancel</a>
 		</div>
-		<a href="#gallery" class="lb-close">Close</a>
+		<a href="<%=indexUrl %>#gallery" class="lb-close">Close</a>
 	</div>
 <!-- gallery -->
 
-
-<!-- /contact -->
-	<!--<div class="map-w3ls">
-				 <div class="wthree_title_agile">
-						        <h3> Contact <span>Us</span>  </h3>
-				</div>
-						 <p class="sub_para">It’s time to drive</p>
-		<div class="contact-agile" id="contact">
-		<div class="contact-middle">
-					<h4>Say Hello</h4>
-					<form action="#" method="post">
-					<div class="form-agileinfo">
-					<div class="input-w3ls">
-						<p>Your Name</p>
-						<input type="text" name="your name" placeholder="" required="" />
-					</div>
-					<div class="input-w3ls">
-						<p>Your Email</p>
-						<input type="email" name="Your email" placeholder="" required="" />
-					</div>
-					</div>
-					<div class="form-agileits-w3layouts">
-					<p>Your Comments</p>
-						<textarea  name="your message" placeholder="" required="" ></textarea>
-							<input type="submit"   value="Send message">
-					</div>
-					<div class="clearfix"></div>
-					</form>
-				</div>
-				<div class="contact-left">
-					<h6>Longford,UK</h6>
-					<p>+00 338 505 1221</p>
-					<p>Inner Ring W, Hounslow TW6 1BP, UK</p>
-					<p><a href="mailto:info@example.com">mail@example.com</a></p>
-					<h6>Opening Hours</h6>
-					<p>Monday-Friday</p>
-						<span>7.00AM-10.00PM</span>
-					​<p>Saturday-Sunday</p>
-						​<span>7.00AM-8.00PM</span>
-				</div>
-				
-		</div>
-	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12947831.742778081!2d-95.665!3d37.599999999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sin!4v1422444552833"></iframe>
-
-		</div>-->
+	
 <!-- //contact -->
 	<div class="w3_agile_address">
 		<div class="container">
-				
+
 			<div class="w3ls_footer_grid">
 				<div class="col-md-4 w3ls_footer_grid_left">
 					<div class="w3ls_footer_grid_leftl">
@@ -893,14 +821,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a  class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 					<li><a  class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
 					<li><a  class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-					
+
 				</ul>
-			</div>				
+			</div>
 			</div>
 			<div class="col-md-2 footer-grid">
 			     <h3>Need Help ?</h3>
 					<ul>
-						
+
 						<li><a class="scroll" href="#home">Home</a></li>
 						<li><a class="scroll" href="#about">About</a></li>
 						<li><a class="scroll" href="#team">Team</a></li>
@@ -910,29 +838,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-4 footer-grid">
 					<h3>Recently Launched</h3>
-			
+
 					<div class="footer-grid1">
 						<div class="footer-grid1-left">
 							<a ><img src="images/s3.jpg" alt=" " class="img-responsive"></a>
 						</div>
 						<div class="footer-grid1-right">
 							<a >Lorem ipsum dolor eveniet ut molesti</a>
-							
+
 						</div>
 						<div class="clearfix"> </div>
 					</div>
 					<div class="footer-grid1">
-				
+
 						<div class="footer-grid1-left">
 							<a ><img src="images/s1.jpg" alt=" " class="img-responsive"></a>
 						</div>
 						<div class="footer-grid1-right">
 							<a >Lorem ipsum dolor earum rerum tenet</a>
-							
+
 						</div>
 						<div class="clearfix"> </div>
 					</div>
-					
+
 				</div>
 				<div class="col-md-3 footer-grid">
 					<h3>From Flickr</h3>
@@ -952,36 +880,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-	
+
 	</div>
 	<div class="w3l_footer_agile">
 			<p>@copyright h5kuang</p>
-			
+
 		</div>
 <!-- //footer -->
-	
+
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<!--scripts--> 
+<!--scripts-->
 <!-- Counter required files -->
 		<script type="text/javascript" src="js/dscountdown.min.js"></script>
 		<script src="js/demo-1.js"></script>
 		<script>
-			jQuery(document).ready(function($){						
+			jQuery(document).ready(function($){
 				$('.demo2').dsCountDown({
 					endDate: new Date("December 7, 2018 23:59:00"),
 					theme: 'black'
-					});								
+					});
 			});
 		</script>
 	<!-- //Counter required files -->
 
-	<!--//scripts--> 
+	<!--//scripts-->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
+		$(".scroll").click(function(event){
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
@@ -1007,19 +935,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									  $('.events').append("<li>after event fired.</li>");
 									}
 								  });
-							
+
 								});
 							 </script>
 							<script src="js/modernizr.custom.js"></script>
-		
-							
+
+
 	<script src="js/jquery.flipster.js"></script>
 <script>
 
 	$(function(){ $(".flipster").flipster({ style: 'carousel', start: 0 }); });
 
 
-</script>	
+</script>
 <!--banner Slider starts Here-->
 							 <!-- required-js-files-->
 							<link href="css/owl.carousel.css" rel="stylesheet">
@@ -1033,12 +961,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							        lazyLoad : true,
 							        autoPlay : true,
 							        navigation :true,
-									
+
 							        navigationText :  false,
 							        pagination :false,
-									
+
 							      });
-								  
+
 							    });
 							    </script>
 								 <!--//required-js-files-->
@@ -1050,9 +978,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			containerID: 'toTop', // fading element id
 			containerHoverID: 'toTopHover', // fading element hover id
 			scrollSpeed: 1200,
-			easingType: 'linear' 
+			easingType: 'linear'
 			};
-		*/								
+		*/
 		$().UItoTop({ easingType: 'easeOutQuart' });
 		});
 	</script>
