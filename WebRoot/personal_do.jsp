@@ -54,7 +54,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	long t2 = d.getTimeInMillis();
 	long day = (t2-t1)/(1000*60*60*24);
 	vo.setMoney(car.getBaseprice() + car.getCarrent() * (int)day);
- 	if(ServiceFactory.getITradeServiceInstance().insert(vo)){
+	System.out.println("carid="+carid);
+	System.out.println("cusid="+cusid);
+	System.out.println("start="+start);
+	System.out.println("end="+end);
+	System.out.println("startdate="+startdate);
+	System.out.println("enddate="+enddate);
+ 	//if(ServiceFactory.getITradeServiceInstance().insert(vo)){
  	//System.out.println(sdf.format(startdate));
  	//System.out.println(cusid);
  %>
@@ -62,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  			alert("租车成功！");
  		</script>
  <%
- 	}
+ 	//}
    %>
   </body>
 </html>
