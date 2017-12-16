@@ -109,8 +109,8 @@ String indexUrl = basePath + "index.jsp";
 <%
 	} else {
  %>
-	<a style="color: white;" href="Register_login/Register.jsp">注册</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<a style="color: white;" href="Register_login/login_in.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a style="color: white;" href="Regsiter_login/Register.jsp">注册</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a style="color: white;" href="Regsiter_login/login_in.jsp">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <%
 	}
  %>

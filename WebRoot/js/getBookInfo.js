@@ -13,45 +13,30 @@ $(function () {
 
 
 
-function getBookInfo(id){
-		
+function getBookInfo(id) {
 	ajax(
-		  {
-		  	method:'POST',
-    		url:'admin/bookManageAction_getBook.action',
-			params: "bookId=" + id,
-			type:"json",
-    		callback:function(data) {
-				$("#findISBN").val(data.ISBN);
-				$("#findBookName").val(data.bookName);
-				$("#findBookType").val(data.bookType.typeName);
-				$("#findAutho").val(data.autho);
-				$("#findPress").val(data.press);
-				$("#findPrice").val(data.price);
-				$("#findDescription").val(data.description);
-				$("#findNum").val(data.num);
-				$("#findAdmin").val(data.admin.name);
-				$("#findCurrentNum").val(data.currentNum);
+		{
+			method : 'POST',
+			url : 'tradeManageAction_getTrade.action',
+			params : "id=" + id,
+			type : "json",
+			callback : function(data) {
+				$("#findId").val(data.id);
+    			$("#findMoney").val(data.money);
+    			$("#findCustomer").val(data.cusid);
+    			$("#findStart").val(data.startdates);
+    			$("#findState").val(data.state);
+    			$("#findEnd").val(data.enddates);
+    			$("#findCar").val(data.cid);
+
 			}
 		}
-										   
-							    
-						
-	);	
-	
-	
-	
-	
-	
-			
 
+	);
 }
-
 
 
 function showInfo(msg) {
     $("#div_info").text(msg);
     $("#modal_info").modal('show');
 }
-
-

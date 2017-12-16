@@ -1,6 +1,7 @@
 package cn.carrent.action;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,14 @@ import org.apache.tomcat.util.http.parser.Authorization;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.carrent.factory.ServiceFactory;
+import cn.carrent.pojo.Admin;
 import cn.carrent.pojo.Car;
 import cn.carrent.pojo.Customer;
 import cn.carrent.pojo.PageBean;
 import cn.carrent.pojo.Trade;
 import cn.carrent.service.ITradeService;
+import cn.carrent.util.JsonValueProcessorImplTest;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.PropertyFilter;
@@ -34,9 +38,21 @@ public class TradeManageAction extends ActionSupport {
 	private double money; // 交易金额
 	private Customer customer;
 	private Car car;
+	private String startdates;
+	private String enddates;
+	private Integer cusid;
+	private Integer cid;
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public Car getCar() {
+		return car;
 	}
 
 	public void setMoney(double money) {
@@ -74,6 +90,7 @@ public class TradeManageAction extends ActionSupport {
 	 */
 	public String addTrade() {
 		Date putdate = new Date(System.currentTimeMillis());// 得到当前时间,作为上架时间
+		Admin admin = (Admin) ServletActionContext.getContext().getSession().get("admin");// 得到操作管理员
 		Trade trade = new Trade(id, customer, car, money, putdate, putdate, state);// 设置图书
 		boolean b = false;
 		try {
@@ -102,32 +119,25 @@ public class TradeManageAction extends ActionSupport {
 	 * @throws Exception
 	 */
 	public String getTrade() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("application/json;charset=utf-8");
 		Trade trade = new Trade();
 		trade.setId(id);
 		Trade newTrade = tradeService.findByTradeId(id);
 		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
-			public boolean apply(Object obj, String name, Object value) {
-				if (obj instanceof Authorization || name.equals("authorization")) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		});
-
-		JSONObject jsonObject = JSONObject.fromObject(newTrade, jsonConfig);
+		jsonConfig.registerJsonValueProcessor(java.util.Date.class, new JsonValueProcessorImplTest());
+		JSONObject jsonFromBean = JSONObject.fromObject(new Trade(newTrade.getId(), newTrade.getCustomer().getCusid(),
+				newTrade.getCar().getCid(), newTrade.getMoney(), sdf.format(newTrade.getStartdate()),
+				sdf.format(newTrade.getEnddate()), newTrade.getState()));
 		try {
-			response.getWriter().print(jsonObject);
+			response.getWriter().print(jsonFromBean);
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String findTradeByPage() throws Exception {
 		// 获取页面传递过来的当前页码数
 		if (pageCode == 0) {
@@ -143,7 +153,6 @@ public class TradeManageAction extends ActionSupport {
 		}
 		// 存入request域中
 		ServletActionContext.getRequest().setAttribute("pb", pb);
-		System.out.println(pb);
 		return "success";
 	}
 
@@ -175,25 +184,28 @@ public class TradeManageAction extends ActionSupport {
 	 * 修改图书
 	 * 
 	 * @return
+	 * @throws Exception
 	 */
-	public String updateTrade() {
-		Date putdate = new Date(System.currentTimeMillis());// 得到当前时间,作为上架时间
+	public String updateTrade() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Trade trade = new Trade();
 		trade.setId(id);
 		Trade updateTrade = new Trade();
 		updateTrade.setId(id);
 		updateTrade.setMoney(money);
-		updateTrade.setStartdate(putdate);
-		updateTrade.setEnddate(putdate);
+		updateTrade.setStartdate(sdf.parse(startdates));
+		updateTrade.setEnddate(sdf.parse(enddates));
 		updateTrade.setState(state);
-		updateTrade.setCar(car);
+		Customer customer = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
 		updateTrade.setCustomer(customer);
+		Car car = ServiceFactory.getICarServiceInstance().findByCarId(cid);
+		updateTrade.setCar(car);
 		Boolean flag = null;
 		try {
 			flag = tradeService.update(updateTrade);
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		} // 修改图书信息对象
+		}
 		int success = 0;
 		if (flag) {
 			success = 1;
@@ -228,5 +240,37 @@ public class TradeManageAction extends ActionSupport {
 		}
 
 		return null;
+	}
+
+	public String getStartdates() {
+		return startdates;
+	}
+
+	public void setStartdates(String startdates) {
+		this.startdates = startdates;
+	}
+
+	public Integer getCusid() {
+		return cusid;
+	}
+
+	public void setCusid(Integer cusid) {
+		this.cusid = cusid;
+	}
+
+	public String getEnddates() {
+		return enddates;
+	}
+
+	public void setEnddates(String enddates) {
+		this.enddates = enddates;
+	}
+
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
 	}
 }

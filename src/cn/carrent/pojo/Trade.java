@@ -18,6 +18,10 @@ public class Trade implements java.io.Serializable {
 	private Date startdate;
 	private Date enddate;
 	private boolean state;
+	private String startdates;
+	private String enddates;
+	private Integer cusid;
+	private Integer cid;
 
 	// Constructors
 
@@ -31,8 +35,8 @@ public class Trade implements java.io.Serializable {
 		this.state = state;
 	}
 
-	/** full constructor */
 	public Trade(Integer id, Customer customer, Car car, double money, Date startdate, Date enddate, boolean state) {
+		super();
 		this.id = id;
 		this.customer = customer;
 		this.car = car;
@@ -42,6 +46,49 @@ public class Trade implements java.io.Serializable {
 		this.state = state;
 	}
 
+	/** full constructor */
+	public Trade(Integer id, Integer cusid, Integer cid, double money, String startdate, String enddate,
+			boolean state) {
+		this.id = id;
+		this.cusid = cusid;
+		this.cid = cid;
+		this.money = money;
+		this.startdates = startdate;
+		this.enddates = enddate;
+		this.state = state;
+	}
+
+	public String getEnddates() {
+		return enddates;
+	}
+
+	public void setEnddates(String enddates) {
+		this.enddates = enddates;
+	}
+
+	public Integer getCusid() {
+		return cusid;
+	}
+
+	public void setCusid(Integer cusid) {
+		this.cusid = cusid;
+	}
+
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
+	public Trade(Integer id, double money, String startdate, String enddate, boolean state) {
+		this.id = id;
+		this.money = money;
+		this.setStartdates(startdate);
+		this.enddates = enddate;
+		this.state = state;
+	}
 	// Property accessors
 
 	public Integer getId() {
@@ -98,6 +145,14 @@ public class Trade implements java.io.Serializable {
 
 	public void setState(boolean state) {
 		this.state = state;
+	}
+
+	public String getStartdates() {
+		return startdates;
+	}
+
+	public void setStartdates(String startdates) {
+		this.startdates = startdates;
 	}
 
 }
