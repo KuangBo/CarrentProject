@@ -5,7 +5,7 @@ $(function() {
 	$('#updateBook').click(function() {
 
 		var postdata = "id=" + $.trim($("#updateId").val()) + "&money=" + $.trim($("#updateMoney").val()) + "&startdates=" + $.trim($("#updateStart").val())
-		+ "&enddates=" + $.trim($("#updateEnd").val()) + "&customer=" + $.trim($("#updateCustomer").val()) + "&car=" + $.trim($("#updateCar").val());
+		+ "&enddates=" + $.trim($("#updateEnd").val()) + "&cusid=" + $.trim($("#updateCustomer").val()) + "&cid=" + $.trim($("#updateCar").val());
 		ajax(
 			{
 				method : 'POST',

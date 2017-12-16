@@ -28,11 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	String end = request.getParameter("endTime");
  	//String cusid = (String)session.getAttribute("cusid");
  	String cusid = request.getParameter("uesrid");
+ 	String tradId = ID.getId(9);
  	Trade vo = new Trade();
  	//在车俩的服务层增加根据车的ID查询车辆信息,返回一个Car对象
  	Car car = ServiceFactory.getICarServiceInstance().findByCarId(Integer.parseInt(carid));
  	//在顾客服务层增加根据顾客ID查询顾客信息，返回一个Customer对象
  	Customer customer = ServiceFactory.getICustomerServiceInstance().findByCusId(Integer.parseInt(cusid));
+ 	vo.setId(Integer.parseInt(cusid));
  	vo.setCar(car);
  	vo.setCustomer(customer);
  	vo.setState(true);

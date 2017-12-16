@@ -184,13 +184,11 @@ public class TradeManageAction extends ActionSupport {
 		Car car = ServiceFactory.getICarServiceInstance().findByCarId(cid);
 		updateTrade.setCar(car);
 		Boolean flag = null;
-		System.out.println(updateTrade);
 		try {
 			flag = tradeService.update(updateTrade);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		System.out.println(updateTrade);
 		int success = 0;
 		if (flag) {
 			success = 1;
@@ -217,9 +215,12 @@ public class TradeManageAction extends ActionSupport {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} // 删除图书
-
+		int data = 0;
+		if (success) {
+			data = 1;
+		}
 		try {
-			ServletActionContext.getResponse().getWriter().print(success);
+			ServletActionContext.getResponse().getWriter().print(data);
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}

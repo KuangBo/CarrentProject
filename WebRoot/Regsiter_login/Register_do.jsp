@@ -26,7 +26,7 @@ String registerUrl = basePath + "Register_login/Register_do.jsp";
      <%
      	String msg = "";
      	String url = "";
-     	String cusid = CustomerId.getCustomerId();
+     	String cusid = ID.getId(4);
      	Customer vo = new Customer();
      	vo.setCusid(Integer.parseInt(cusid));
      	session.setAttribute("cusid", cusid);
