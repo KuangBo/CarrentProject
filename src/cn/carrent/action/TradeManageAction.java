@@ -36,8 +36,6 @@ public class TradeManageAction extends ActionSupport {
 
 	private Integer id; // 交易单号
 	private double money; // 交易金额
-	private Customer customer;
-	private Car car;
 	private String startdates;
 	private String enddates;
 	private Integer cusid;
@@ -47,24 +45,8 @@ public class TradeManageAction extends ActionSupport {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public Car getCar() {
-		return car;
-	}
-
 	public void setMoney(double money) {
 		this.money = money;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
 	}
 
 	public void setStartdate(Date startdate) {
@@ -89,9 +71,10 @@ public class TradeManageAction extends ActionSupport {
 	 * @return
 	 */
 	public String addTrade() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date putdate = new Date(System.currentTimeMillis());// 得到当前时间,作为上架时间
 		Admin admin = (Admin) ServletActionContext.getContext().getSession().get("admin");// 得到操作管理员
-		Trade trade = new Trade(id, customer, car, money, putdate, putdate, state);// 设置图书
+		Trade trade = new Trade(id, cusid, cid, money, sdf.format(putdate), sdf.format(putdate), state);// 设置图书
 		boolean b = false;
 		try {
 			b = tradeService.insert(trade);
@@ -201,11 +184,13 @@ public class TradeManageAction extends ActionSupport {
 		Car car = ServiceFactory.getICarServiceInstance().findByCarId(cid);
 		updateTrade.setCar(car);
 		Boolean flag = null;
+		System.out.println(updateTrade);
 		try {
 			flag = tradeService.update(updateTrade);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		System.out.println(updateTrade);
 		int success = 0;
 		if (flag) {
 			success = 1;
