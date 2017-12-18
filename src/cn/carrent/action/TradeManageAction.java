@@ -107,7 +107,7 @@ public class TradeManageAction extends ActionSupport {
 		response.setContentType("application/json;charset=utf-8");
 		Trade trade = new Trade();
 		trade.setId(id);
-		Trade newTrade = tradeService.findByTradeId(id);
+		Trade newTrade = tradeService.findById(id);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(java.util.Date.class, new JsonValueProcessorImplTest());
 		JSONObject jsonFromBean = JSONObject.fromObject(new Trade(newTrade.getId(), newTrade.getCustomer().getCusid(),
@@ -161,6 +161,16 @@ public class TradeManageAction extends ActionSupport {
 			throw new RuntimeException(e.getMessage());
 		}
 		return null;
+	}
+
+	public String queryTrade() throws Exception {
+		if (id != null) {
+			PageBean<Trade> pb = tradeService.findByTradeId(id);
+			ServletActionContext.getRequest().setAttribute("pb", pb);
+		} else {
+			this.findTradeByPage();
+		}
+		return "success";
 	}
 
 	/**

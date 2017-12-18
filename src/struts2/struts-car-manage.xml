@@ -3,10 +3,10 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="tradeManage" extends="struts-default" namespace="/pages/admin">
-		<action name="tradeManageAction_*" method="{1}"
-			class="cn.carrent.action.TradeManageAction">
-			<result name="success">/WEB-INF/admin/tradeManage.jsp</result>
+	<package name="carManage" extends="struts-default" namespace="/pages/admin">
+		<action name="carManageAction_*" method="{1}"
+			class="cn.carrent.action.CarManageAction">
+			<result name="success">/WEB-INF/admin/carManage.jsp</result>
 			<result name="nopass" type="redirect">/error/nopass.jsp</result>
 		</action>
 	</package>

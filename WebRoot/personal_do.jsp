@@ -7,6 +7,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String indexUrl = basePath + "index.jsp";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,13 +29,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	String end = request.getParameter("endTime");
  	//String cusid = (String)session.getAttribute("cusid");
  	String cusid = request.getParameter("uesrid");
- 	String tradId = ID.getId(9);
+ 	String tradeId = ID.getId(9);
  	Trade vo = new Trade();
  	//在车俩的服务层增加根据车的ID查询车辆信息,返回一个Car对象
  	Car car = ServiceFactory.getICarServiceInstance().findByCarId(Integer.parseInt(carid));
  	//在顾客服务层增加根据顾客ID查询顾客信息，返回一个Customer对象
  	Customer customer = ServiceFactory.getICustomerServiceInstance().findByCusId(Integer.parseInt(cusid));
- 	vo.setId(Integer.parseInt(cusid));
+ 	vo.setId(Integer.parseInt(tradeId));
+ 	vo.setCid(Integer.parseInt(carid));
+ 	vo.setCusid(Integer.parseInt(cusid));
  	vo.setCar(car);
  	vo.setCustomer(customer);
  	vo.setState(true);
@@ -56,21 +59,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	long t2 = d.getTimeInMillis();
 	long day = (t2-t1)/(1000*60*60*24);
 	vo.setMoney(car.getBaseprice() + car.getCarrent() * (int)day);
+	System.out.println("id="+tradeId);
 	System.out.println("carid="+carid);
 	System.out.println("cusid="+cusid);
-	System.out.println("start="+start);
-	System.out.println("end="+end);
 	System.out.println("startdate="+startdate);
 	System.out.println("enddate="+enddate);
- 	//if(ServiceFactory.getITradeServiceInstance().insert(vo)){
- 	//System.out.println(sdf.format(startdate));
- 	//System.out.println(cusid);
+	System.out.println("money="+vo.getMoney());
+	System.out.println("state="+vo.getState());
+ 	if(ServiceFactory.getITradeServiceInstance().insert(vo)){
  %>
  		<script type="text/javascript">
  			alert("租车成功！");
+ 			window.location = "<%=indexUrl%>";
  		</script>
  <%
- 	//}
+ 	}
    %>
   </body>
 </html>

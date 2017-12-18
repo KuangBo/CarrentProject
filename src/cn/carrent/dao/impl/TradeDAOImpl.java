@@ -1,5 +1,6 @@
 package cn.carrent.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,13 @@ import cn.carrent.pojo.Trade;
 public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 	@Override
 	public boolean doCreate(Trade vo) throws Exception {
+		System.out.println(vo.getId());
+		System.out.println(vo.getMoney());
+		System.out.println(vo.getStartdate());
+		System.out.println(vo.getEnddate());
+		System.out.println(vo.getCid());
+		System.out.println(vo.getCusid());
+		System.out.println(vo.getState());
 		HibernateSessionFactory.getSession().save(vo);
 		return true;
 	}
@@ -33,6 +41,19 @@ public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 	@Override
 	public Trade findById(Integer id) throws Exception {
 		return (Trade) HibernateSessionFactory.getSession().get(Trade.class, id);
+	}
+
+	@Override
+	public PageBean<Trade> findByTradeId(Integer id) throws Exception {
+		PageBean<Trade> pb = new PageBean<Trade>();
+		List<Trade> tradeList = new ArrayList<Trade>();
+		Trade trade = (Trade) HibernateSessionFactory.getSession().get(Trade.class, id);
+		tradeList.add(trade);
+		if (tradeList != null && tradeList.size() > 0) {
+			pb.setBeanList(tradeList);
+			return pb;
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")

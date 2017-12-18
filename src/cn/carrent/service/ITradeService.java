@@ -13,7 +13,9 @@ public interface ITradeService {
 
 	public boolean remove(Integer id) throws Exception;
 
-	public Trade findByTradeId(Integer id) throws Exception;
+	public Trade findById(Integer id) throws Exception;
+
+	public PageBean<Trade> findByTradeId(Integer id) throws Exception;
 
 	public PageBean<Trade> findTradeByPage(String column, String keyWord, int pageCode, int pageSize);
 
