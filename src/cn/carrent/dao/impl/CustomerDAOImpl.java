@@ -8,6 +8,7 @@ import cn.carrent.dao.ICustomerDAO;
 import cn.carrent.dao.util.AbstractDAOImpl;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.pojo.Customer;
+import cn.carrent.pojo.PageBean;
 
 public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 
@@ -72,6 +73,25 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 	@Override
 	public List<Customer> findAllSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception {
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public PageBean<Customer> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
+		PageBean<Customer> pb = new PageBean<Customer>(); // pageBean对象，用于分页
+		column = "id";
+		String sql = "FROM Customer AS c WHERE c." + column + " LIKE ?";
+		Query query = HibernateSessionFactory.getSession().createQuery(sql);
+		query.setString(0, "%" + keyWord + "%");
+		query.setFirstResult((currentPage - 1) * lineSize);
+		query.setMaxResults(lineSize);
+		List<Customer> customerList = query.list();
+		if (customerList != null && customerList.size() > 0) {
+			pb.setBeanList(customerList);
+			return pb;
+		}
 		return null;
 	}
 

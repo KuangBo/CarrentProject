@@ -1,6 +1,7 @@
 package cn.carrent.dao;
 
 import cn.carrent.pojo.Customer;
+import cn.carrent.pojo.PageBean;
 
 public interface ICustomerDAO extends IDAO<Integer, Customer> {
 	/**
@@ -11,4 +12,7 @@ public interface ICustomerDAO extends IDAO<Integer, Customer> {
 	 * @throws Exception
 	 */
 	public boolean findLogin(Customer vo) throws Exception;
+
+	public PageBean<Customer> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception;
 }

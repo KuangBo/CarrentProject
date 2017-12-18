@@ -8,6 +8,7 @@ import cn.carrent.dao.ICustomerDAO;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.factory.DAOFactory;
 import cn.carrent.pojo.Customer;
+import cn.carrent.pojo.PageBean;
 import cn.carrent.service.ICustomerService;
 
 public class CustomerServiceImpl implements ICustomerService {
@@ -73,6 +74,15 @@ public class CustomerServiceImpl implements ICustomerService {
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return cus;
+	}
+
+	@Override
+	public PageBean<Customer> listSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
+		PageBean<Customer> all = DAOFactory.getICustomerDAOInstance().findAllSplits(currentPage, lineSize, column,
+				keyWord);
+		HibernateSessionFactory.closeSession();
+		return all;
 	}
 
 }

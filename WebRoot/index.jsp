@@ -54,7 +54,6 @@ String indexUrl = basePath + "index.jsp";
 			b.style.display="block";
 		}
 
-
 </script>
 
 <!-- //for-mobile-apps -->
@@ -94,19 +93,30 @@ String indexUrl = basePath + "index.jsp";
 		</div>
 		<div class="header_right">
 		      <div class="w3ls-social-icons">
+
 <%
 	String cusname = null;
+	Customer cus = null;
 	if(session.getAttribute("cusid") != null) {
 		int cusid = (Integer)session.getAttribute("cusid");
-		Customer cus = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
+		cus = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
 		cusname = cus.getCusname();
 	}
 	if(cusname != null){
 %>
-	<a style="color: white;">欢迎您，<%=cusname %></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	欢迎您，<buuton type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal"
-												onclick="getCarInfo(<s:property value="#car.cid"/>)"><%=cusname %></buuton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<a style="color: white;" href="<%=indexUrl%>">退出</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a style="color: white;">欢迎您</a>
+	<button class="btn btn-primary" style="background-color: black;font-size:14px;border-width:0px;outline: 0; width: 65px;height: 36px;color: #FFFFFF" data-toggle="modal" data-target="#Modal" onclick="setVal()"><%=cusname %></button>
+	&nbsp;&nbsp;&nbsp;
+	<script>
+		function setVal(){
+			 $("#uname").val("<%=cus.getCusname()%>");
+			 $("#cid").val("<%=cus.getCusid()%>");
+			 $("#idcard").val("<%=cus.getIdcard()%>");
+			 $("#phone").val("<%=cus.getCusphone()%>");
+			 $("#yue").val("<%=cus.getBalance()%>");
+		}
+	</script>
+	<a style="color: white;" href="<%=indexUrl%>">退出</a>&nbsp;&nbsp;&nbsp;
 	<!-- <a style="color: white;" href="personal.jsp?username=<%=cusname%>">个人信息</a> -->
 <%
 	} else {
@@ -772,7 +782,7 @@ String indexUrl = basePath + "index.jsp";
 	</div>
 <!-- gallery -->
 
-	
+
 <!-- //contact -->
 	<div class="w3_agile_address">
 		<div class="container">
@@ -989,5 +999,70 @@ String indexUrl = basePath + "index.jsp";
 	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!-- //smooth scrolling -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<div class="container">
+
+    <form method="post" action="#" class="form-horizontal" role="form" id="myForm">
+        <div class="modal fade" id="Modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!--  定义模态框，过渡效果为淡入，id为myModal,tabindex=-1可以禁用使用tab切换，aria-labelledby用于引用模态框的标题，aria-hidden=true保持模态框在触发前窗口不可见  -->
+            <div class="modal-dialog">
+                <!--  显示模态框对话框模型（若不写下一个div则没有颜色）  -->
+                <div class="modal-content">
+                    <!--  显示模态框白色背景，所有内容都写在这个div里面  -->
+
+                    <div class="btn-info modal-header">
+                        <!--  模态框标题  -->
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <!--  关闭按钮  -->
+                        <h4>个人信息</h4>
+                        <!--  标题内容  -->
+                    </div>
+
+                    <div class="modal-body">
+                        <!--  模态框内容，我在此处添加一个表单 -->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="uname" class="col-sm-2 control-label">用户名</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="uname" name="uname" readonly="true" class="form-control well" placeholder="用户名"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cid" class="col-sm-2 control-label">用户ID</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="cid" readonly="true" name="cid" class="form-control well" placeholder="用户ID"/>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="idcard" class="col-sm-2 control-label">身份证号</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="idcard" readonly="true" name="idcard" class="form-control well" placeholder="身份证号"/>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="phone" class="col-sm-2 control-label">电话</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="phone" readonly="true" name="phone" class="form-control well" placeholder="电话"/>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label for="yue" class="col-sm-2 control-label">余额</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="yue" readonly="true" name="yue" class="form-control well" placeholder="余额"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--  模态框底部样式，一般是提交或者确定按钮 -->
+                        <!-- <button type="submit" class="btn btn-info">确定</button> -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div>
+        </div> <!-- /.modal -->
+    </form>
+</div>
 </body>
 </html>
