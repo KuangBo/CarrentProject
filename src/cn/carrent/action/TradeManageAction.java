@@ -66,7 +66,7 @@ public class TradeManageAction extends ActionSupport {
 	private boolean state;
 
 	/**
-	 * 添加图书
+	 * 添加订单
 	 * 
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class TradeManageAction extends ActionSupport {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date putdate = new Date(System.currentTimeMillis());// 得到当前时间,作为上架时间
 		Admin admin = (Admin) ServletActionContext.getContext().getSession().get("admin");// 得到操作管理员
-		Trade trade = new Trade(id, cusid, cid, money, sdf.format(putdate), sdf.format(putdate), state);// 设置图书
+		Trade trade = new Trade(id, cusid, cid, money, sdf.format(putdate), sdf.format(putdate), state);// 设置订单
 		boolean b = false;
 		try {
 			b = tradeService.insert(trade);
@@ -96,7 +96,7 @@ public class TradeManageAction extends ActionSupport {
 	}
 
 	/**
-	 * 得到指定图书编号的图书信息 ajax请求该方法 返回该图书信息的json对象
+	 * 得到指定订单编号的订单信息 ajax请求该方法 返回该订单信息的json对象
 	 * 
 	 * @return
 	 * @throws Exception
@@ -174,7 +174,7 @@ public class TradeManageAction extends ActionSupport {
 	}
 
 	/**
-	 * 修改图书
+	 * 修改订单
 	 * 
 	 * @return
 	 * @throws Exception
@@ -191,7 +191,7 @@ public class TradeManageAction extends ActionSupport {
 		updateTrade.setState(state);
 		Customer customer = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
 		updateTrade.setCustomer(customer);
-		Car car = ServiceFactory.getICarServiceInstance().findByCarId(cid);
+		Car car = ServiceFactory.getICarServiceInstance().findById(cid);
 		updateTrade.setCar(car);
 		Boolean flag = null;
 		try {
@@ -213,18 +213,17 @@ public class TradeManageAction extends ActionSupport {
 	}
 
 	/**
-	 * 删除指定图书
+	 * 删除指定订单
 	 * 
 	 * @return
 	 */
 	public String deleteTrade() {
-		// 删除图书需要注意的事项：如果该书有尚未归还的记录或者尚未缴纳的罚款记录,则不能删除
 		boolean success = false;
 		try {
 			success = tradeService.remove(id);
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		} // 删除图书
+		} // 删除订单
 		int data = 0;
 		if (success) {
 			data = 1;

@@ -128,4 +128,11 @@ public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 		return null;
 	}
 
+	@Override
+	public Integer findTradeIdByCid(Integer cid) throws Exception {
+		String hql = "SELECT t.id FROM Trade AS t WHERE cid= " + cid;
+		Query query = HibernateSessionFactory.getSession().createQuery(hql);
+		return (Integer) query.uniqueResult();
+	}
+
 }

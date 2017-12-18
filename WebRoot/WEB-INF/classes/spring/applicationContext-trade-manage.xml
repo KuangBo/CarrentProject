@@ -5,19 +5,16 @@
 	xmlns:tx="http://www.springframework.org/schema/tx">
 
  
- <bean id="tradeDAO" class="cn.carrent.dao.impl.TradeDAOImpl">
- 		<property name="sessionFactory">
- 			<ref bean="sessionFactory"/>
- 		</property>
- 	</bean>
- 	
- 	<bean id="tradeService" class="cn.carrent.service.impl.TradeServiceImpl">
- 		<property name="tradeDAO">
- 			<ref bean="tradeDAO"/>
- 		</property>
- 	</bean>
- 
- 		
+	 <bean id="tradeDAO" class="cn.carrent.dao.impl.TradeDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="tradeService" class="cn.carrent.service.impl.TradeServiceImpl">
+		<property name="tradeDAO">
+			<ref bean="tradeDAO" />
+		</property>
+	</bean>
  	<bean id="tradeManageAction" class="cn.carrent.action.TradeManageAction" scope="prototype">
  		<property name="tradeService">
  			<ref bean="tradeService"/>

@@ -33,18 +33,9 @@
 <script src="${pageContext.request.contextPath}/js/adminUpdatePwd.js"></script>
 
 
-
-<script src="${pageContext.request.contextPath}/js/addBook.js"></script>
-
-<script src="${pageContext.request.contextPath}/js/updateBook.js"></script>
-<script src="${pageContext.request.contextPath}/js/deleteBook.js"></script>
-<script src="${pageContext.request.contextPath}/js/getBookInfo.js"></script>
-<script src="${pageContext.request.contextPath}/js/addBookNum.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/jQuery/ajaxfileupload.js"></script>
-<script src="${pageContext.request.contextPath}/js/ajax_upload.js"></script>
-<script src="${pageContext.request.contextPath}/js/batchAddBook.js"></script>
-<script src="${pageContext.request.contextPath}/js/exportBook.js"></script>
+<script src="${pageContext.request.contextPath}/js/updateCar.js"></script>
+<script src="${pageContext.request.contextPath}/js/deleteCar.js"></script>
+<script src="${pageContext.request.contextPath}/js/getCarInfo.js"></script>
 </head>
 
 
@@ -123,73 +114,19 @@
 							<div
 								class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
 								<form class="form-horizontal"
-									action="${pageContext.request.contextPath}/pages/admin/tradeManageAction_getTrade.action"
+									action="${pageContext.request.contextPath}/pages/admin/carManageAction_queryCar.action"
 									method="post">
 									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bno">订单编号</label>
+										<label class="col-lg-4 control-label" for="query_bno">车辆编号</label>
 										<div class="col-lg-8">
-											<input class="form-control" id="id" name="id" type="text"
+											<input class="form-control" id="cid" name="cid" type="text"
 												value=""> <label class="control-label"
 												for="query_bno" style="display: none;"></label>
 										</div>
 									</div>
-
-									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bname">交易金额</label>
-										<div class="col-lg-8">
-											<input class="form-control" id="money" name="money"
-												type="text" value=""> <label class="control-label"
-												for="query_bname" style="display: none;"></label>
-										</div>
-									</div>
-
-									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bname">开始时间</label>
-										<div class="col-lg-8">
-											<input class="form-control" id="startDate" name="startDate"
-												type="text" value=""> <label class="control-label"
-												for="query_bname" style="display: none;"></label>
-										</div>
-									</div>
-
-									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bname">结束时间</label>
-										<div class="col-lg-8">
-											<input class="form-control" id="endDate" name="endDate"
-												type="text" value=""> <label class="control-label"
-												for="query_bname" style="display: none;"></label>
-										</div>
-									</div>
-
-									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bname">顾客</label>
-										<div class="col-lg-8">
-											<input class="form-control" id="cusid" name="cusid"
-												type="text" value=""> <label class="control-label"
-												for="query_bname" style="display: none;"></label>
-										</div>
-									</div>
-
-									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bname">车辆</label>
-										<div class="col-lg-8">
-											<input class="form-control" id="cid" name="cid" type="text"
-												value=""> <label class="control-label"
-												for="query_bname" style="display: none;"></label>
-										</div>
-									</div>
-
-									<div class="col-lg-5 form-group">
-										<label class="col-lg-4 control-label" for="query_bname">状态</label>
-										<div class="col-lg-8">
-											<input class="form-control" id="state" name="state"
-												type="text" value=""> <label class="control-label"
-												for="query_bname" style="display: none;"></label>
-										</div>
-									</div>
 									<div class="col-lg-2 form-group">
 										<button type="submit" class="btn btn-primary" id="btn_query"
-											onclick="query()">查询</button>
+											onclick="queryCar(id)">查询</button>
 									</div>
 								</form>
 							</div>
@@ -204,47 +141,42 @@
 							cellspacing="0" width="100%">
 							<thead>
 								<tr>
-									<th>订单编号</th>
-									<th>交易金额</th>
-									<th>开始日期</th>
-									<th>结束日期</th>
-									<th>顾客</th>
-									<th>车辆</th>
+									<th>车辆编号</th>
+									<th>品牌</th>
+									<th>型号</th>
+									<th>押金</th>
+									<th>租金</th>
 									<th>状态</th>
 									<th>操作</th>
-
 								</tr>
 							</thead>
 
-
 							<!---在此插入信息-->
 							<s:if test="#request.pb.beanList!=null">
-								<s:iterator value="#request.pb.beanList" var="trade">
+								<s:iterator value="#request.pb.beanList" var="car">
 									<tbody>
-										<td><s:property value="#trade.id" /></td>
-										<td><s:property value="#trade.money" /></td>
-										<td><s:property value="#trade.startdate" /></td>
-										<td><s:property value="#trade.enddate" /></td>
-										<td><s:property value="#trade.customer.cusid" /></td>
-										<td><s:property value="#trade.car.cid" /></td>
-										<td><s:property value="#trade.state" /></td>
+										<td><s:property value="#car.cid" /></td>
+										<td><s:property value="#car.brand" /></td>
+										<td><s:property value="#car.model" /></td>
+										<td><s:property value="#car.baseprice" /></td>
+										<td><s:property value="#car.carrent" /></td>
+										<td><s:property value="#car.state" /></td>
 										<td>
 											<button type="button" class="btn btn-info btn-xs"
 												data-toggle="modal" data-target="#findModal"
-												onclick="getBookInfo(<s:property value="#trade.id"/>)">查看</button>
+												onclick="getCarInfo(<s:property value="#car.cid"/>)">查看</button>
 											<button type="button" class="btn btn-warning btn-xs"
 												data-toggle="modal" data-target="#updateModal"
 												id="btn_update"
-												onclick="updateBook(<s:property value="#trade.id"/>)">修改</button>
+												onclick="updateCar(<s:property value="#car.cid"/>)">修改</button>
 											<button type="button" class="btn btn-danger btn-xs"
-												onclick="deleteBook(<s:property value="#trade.id"/>)">删除</button>
+												onclick="deleteCar(<s:property value="#car.cid"/>)">删除</button>
 										</td>
 									</tbody>
 								</s:iterator>
 							</s:if>
 							<s:else>
 								<tbody>
-									<td>暂无数据</td>
 									<td>暂无数据</td>
 									<td>暂无数据</td>
 									<td>暂无数据</td>
@@ -278,50 +210,40 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="findModalLabel">查看租车信息</h4>
+						<h4 class="modal-title" id="findModalLabel">查看车辆信息</h4>
 					</div>
 					<div class="modal-body">
 
 						<!---------------------表单-------------------->
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">订单编号</label>
+							<label for="firstname" class="col-sm-3 control-label">车辆编号</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="findId"
+								<input type="text" class="form-control" id="findCid"
 									readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">交易金额</label>
+							<label for="firstname" class="col-sm-3 control-label">品牌</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="findMoney"
-									readonly="readonly">
-
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">开始日期</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control" id="findStart"
+								<input type="text" class="form-control" id="findBrand"
 									readonly="readonly">
 
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">结束日期</label>
+							<label for="firstname" class="col-sm-3 control-label">型号</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="findEnd"
+								<input type="text" class="form-control" id="findModel"
 									readonly="readonly">
 
 							</div>
 						</div>
 
-
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">顾客</label>
+							<label for="firstname" class="col-sm-3 control-label">押金</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="findCustomer"
+								<input type="text" class="form-control" id="findBaseprice"
 									readonly="readonly">
 
 							</div>
@@ -329,9 +251,9 @@
 
 
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">车辆</label>
+							<label for="firstname" class="col-sm-3 control-label">租金</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="findCar"
+								<input type="text" class="form-control" id="findCarrent"
 									readonly="readonly">
 
 							</div>
@@ -376,59 +298,45 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="updateModalLabel">修改租车信息</h4>
+						<h4 class="modal-title" id="updateModalLabel">修改车辆信息</h4>
 					</div>
 					<div class="modal-body">
 
 						<!---------------------表单-------------------->
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">订单编号</label>
+							<label for="firstname" class="col-sm-3 control-label">车辆编号</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="updateId"
+								<input type="text" class="form-control" id="updateCid" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="firstname" class="col-sm-3 control-label">品牌</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="updateBrand"
 									readonly="readonly">
-
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">交易金额</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control" id="updateMoney">
-
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">开始日期</label>
+							<label for="firstname" class="col-sm-3 control-label">型号</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="updateStart" 
+								<input type="text" class="form-control" id="updateModel"
 									readonly="readonly">
-
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">结束日期</label>
+							<label for="firstname" class="col-sm-3 control-label">押金</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="updateEnd">
-
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">顾客</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control" id="updateCustomer">
-
+								<input type="text" class="form-control" id="updateBaseprice">
 							</div>
 						</div>
 
 
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">车辆</label>
+							<label for="firstname" class="col-sm-3 control-label">租金</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="updateCar">
-
+								<input type="text" class="form-control" id="updateCarrent">
 							</div>
 						</div>
 
@@ -436,18 +344,15 @@
 							<label for="firstname" class="col-sm-3 control-label">状态</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" id="updateState">
-
 							</div>
 						</div>
-
-
 						<!---------------------表单-------------------->
 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 						</button>
-						<button type="button" class="btn btn-primary" id="updateBook">
+						<button type="button" class="btn btn-primary" id="updateCar">
 							修改</button>
 					</div>
 				</div>
@@ -540,7 +445,6 @@
 
 
 	<!-------------------------个人资料模糊框------------------------------------->
-
 	<form class="form-horizontal">
 		<!--保证样式水平不混乱-->
 		<!-- 模态框（Modal） -->

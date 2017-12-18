@@ -6,6 +6,8 @@
 
 	<include file="struts2/struts-admin-login.xml"></include>
 	<include file="struts2/struts-trade-manage.xml"></include>
+	<include file="struts2/struts-car-manage.xml"></include>
+	<include file="struts2/struts-customer-manage.xml"></include>
 	<package name="register" extends="struts-default" namespace="/Register_login">
 		<action name="Register_doo" class="cn.carrent.action.FontsAction">
 			<result name="success">/Register_login/Register_do.jsp</result>

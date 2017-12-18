@@ -104,6 +104,8 @@ String indexUrl = basePath + "index.jsp";
 	if(cusname != null){
 %>
 	<a style="color: white;">欢迎您，<%=cusname %></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	欢迎您，<buuton type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal"
+												onclick="getCarInfo(<s:property value="#car.cid"/>)"><%=cusname %></buuton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<a style="color: white;" href="<%=indexUrl%>">退出</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<!-- <a style="color: white;" href="personal.jsp?username=<%=cusname%>">个人信息</a> -->
 <%

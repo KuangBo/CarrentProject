@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="css/acer.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/acer.css">
 <%--
 	<div id="splitBarDiv" style="float: right">
 		<jsp:include page="split_page_plugin_bars.jsp">

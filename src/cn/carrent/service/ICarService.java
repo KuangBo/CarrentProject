@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.carrent.pojo.Car;
+import cn.carrent.pojo.PageBean;
 
 public interface ICarService {
 	public boolean insert(Car vo) throws Exception;
@@ -12,10 +13,15 @@ public interface ICarService {
 
 	public boolean remove(Integer id) throws Exception;
 
-	public Car findByCarId(Integer id) throws Exception;
+	public Car findById(Integer id) throws Exception;
+
+	public PageBean<Car> findByCarId(Integer id) throws Exception;
 
 	public List<Car> list() throws Exception;
 
 	public Map<String, Object> list(String column, String keyWord, Integer currentPage, Integer lineSize)
+			throws Exception;
+
+	public PageBean<Car> listSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception;
 }

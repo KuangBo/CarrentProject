@@ -5,7 +5,7 @@ $(function() {
 	$('#updateTrade').click(function() {
 
 		var postdata = "id=" + $.trim($("#updateId").val()) + "&money=" + $.trim($("#updateMoney").val()) + "&startdates=" + $.trim($("#updateStart").val())
-		+ "&enddates=" + $.trim($("#updateEnd").val()) + "&cusid=" + $.trim($("#updateCustomer").val()) + "&cid=" + $.trim($("#updateCar").val());
+		+ "&enddates=" + $.trim($("#updateEnd").val()) + "&cusid=" + $.trim($("#updateCustomer").val()) + "&cid=" + $.trim($("#updateCar").val()) + "&state=" + $.trim($("#updateState").val());
 		ajax(
 			{
 				method : 'POST',
@@ -56,12 +56,12 @@ function updateTrade(id) {
 			type : "json",
 			callback : function(data) {
 				$("#updateId").val(data.id);
-    			$("#updateMoney").val(data.money);
-    			$("#updateCustomer").val(data.cusid);
-    			$("#updateStart").val(data.startdates);
-    			$("#updateState").val(data.state);
-    			$("#updateEnd").val(data.enddates);
-    			$("#updateCar").val(data.cid);
+				$("#updateMoney").val(data.money);
+				$("#updateCustomer").val(data.cusid);
+				$("#updateStart").val(data.startdates);
+				$("#updateState").val(data.state);
+				$("#updateEnd").val(data.enddates);
+				$("#updateCar").val(data.cid);
 
 			}
 		}

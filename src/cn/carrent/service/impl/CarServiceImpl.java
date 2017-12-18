@@ -8,6 +8,7 @@ import cn.carrent.dao.ICarDAO;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.factory.DAOFactory;
 import cn.carrent.pojo.Car;
+import cn.carrent.pojo.PageBean;
 import cn.carrent.service.ICarService;
 
 public class CarServiceImpl implements ICarService {
@@ -60,11 +61,26 @@ public class CarServiceImpl implements ICarService {
 	}
 
 	@Override
-	public Car findByCarId(Integer id) throws Exception {
+	public Car findById(Integer id) throws Exception {
 		Car car = DAOFactory.getICarDAOInstance().findById(id);
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return car;
 	}
 
+	@Override
+	public PageBean<Car> listSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
+		PageBean<Car> all = DAOFactory.getICarDAOInstance().findAllSplits(currentPage, lineSize, column, keyWord);
+		HibernateSessionFactory.closeSession();
+		return all;
+	}
+
+	@Override
+	public PageBean<Car> findByCarId(Integer id) throws Exception {
+		PageBean<Car> cars = DAOFactory.getICarDAOInstance().findByCarId(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return cars;
+	}
 }

@@ -92,4 +92,12 @@ public class TradeServiceImpl implements ITradeService {
 		return all;
 	}
 
+	@Override
+	public Integer findCarId(Integer id) throws Exception {
+		Integer cid = DAOFactory.getITradeDAOInstance().findTradeIdByCid(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return cid;
+	}
+
 }

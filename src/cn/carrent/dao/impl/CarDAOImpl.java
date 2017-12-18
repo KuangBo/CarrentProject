@@ -1,5 +1,6 @@
 package cn.carrent.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import cn.carrent.dao.ICarDAO;
 import cn.carrent.dao.util.AbstractDAOImpl;
 import cn.carrent.dbc.HibernateSessionFactory;
 import cn.carrent.pojo.Car;
+import cn.carrent.pojo.PageBean;
 
 public class CarDAOImpl extends AbstractDAOImpl implements ICarDAO {
 
@@ -61,6 +63,38 @@ public class CarDAOImpl extends AbstractDAOImpl implements ICarDAO {
 	@Override
 	public List<Car> findAllSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception {
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public PageBean<Car> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
+		PageBean<Car> pb = new PageBean<Car>(); // pageBean对象，用于分页
+		column = "id";
+		String sql = "FROM Car AS c WHERE c." + column + " LIKE ?";
+		Query query = HibernateSessionFactory.getSession().createQuery(sql);
+		query.setString(0, "%" + keyWord + "%");
+		query.setFirstResult((currentPage - 1) * lineSize);
+		query.setMaxResults(lineSize);
+		List<Car> carList = query.list();
+		if (carList != null && carList.size() > 0) {
+			pb.setBeanList(carList);
+			return pb;
+		}
+		return null;
+	}
+
+	@Override
+	public PageBean<Car> findByCarId(Integer id) throws Exception {
+		PageBean<Car> pb = new PageBean<Car>();
+		List<Car> carList = new ArrayList<Car>();
+		Car car = (Car) HibernateSessionFactory.getSession().get(Car.class, id);
+		carList.add(car);
+		if (carList != null && carList.size() > 0) {
+			pb.setBeanList(carList);
+			return pb;
+		}
 		return null;
 	}
 
