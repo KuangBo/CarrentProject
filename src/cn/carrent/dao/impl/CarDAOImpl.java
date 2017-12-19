@@ -71,7 +71,6 @@ public class CarDAOImpl extends AbstractDAOImpl implements ICarDAO {
 	public PageBean<Car> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception {
 		PageBean<Car> pb = new PageBean<Car>(); // pageBean对象，用于分页
-		column = "id";
 		String sql = "FROM Car AS c WHERE c." + column + " LIKE ?";
 		Query query = HibernateSessionFactory.getSession().createQuery(sql);
 		query.setString(0, "%" + keyWord + "%");

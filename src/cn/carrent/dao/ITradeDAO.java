@@ -13,6 +13,8 @@ public interface ITradeDAO extends IDAO<Integer, Trade> {
 
 	public Integer findTradeIdByCid(Integer cid) throws Exception;
 
+	public Integer findTradeIdByCusid(Integer cusid) throws Exception;
+
 	public PageBean<Trade> findAllTrades(String column, String keyWord, Integer currentPage, Integer lineSize);
 
 	public PageBean<Trade> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)

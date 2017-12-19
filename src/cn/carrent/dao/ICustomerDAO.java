@@ -15,4 +15,6 @@ public interface ICustomerDAO extends IDAO<Integer, Customer> {
 
 	public PageBean<Customer> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception;
+
+	public PageBean<Customer> findByCusId(Integer id) throws Exception;
 }

@@ -1,5 +1,6 @@
 package cn.carrent.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -38,7 +39,7 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> findAll() throws Exception {
-		String hql = "FROM Customer AS c ";
+		String hql = "FROM Customer AS cu ";
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
 		return query.list();
 	}
@@ -50,7 +51,7 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 
 	@Override
 	public boolean findLogin(Customer vo) throws Exception {
-		String hql = "SELECT COUNT(*) FROM Customer AS c WHERE c.cusid=:id AND c.password=:psw";
+		String hql = "SELECT COUNT(*) FROM Customer AS cu WHERE cu.cusid=:id AND cu.password=:psw";
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
 		query.setInteger("id", vo.getCusid());
 		query.setString("psw", vo.getPassword());
@@ -62,7 +63,7 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 	@Override
 	public List<Customer> findAll(String column, String keyWord, Integer currentPage, Integer lineSize)
 			throws Exception {
-		String hql = "FROM Customer AS c WHERE c." + column + " LIKE ?";
+		String hql = "FROM Customer AS cu WHERE cu." + column + " LIKE ?";
 		Query query = HibernateSessionFactory.getSession().createQuery(hql);
 		query.setString(0, "%" + keyWord + "%");
 		query.setFirstResult((currentPage - 1) * lineSize);
@@ -81,13 +82,25 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 	public PageBean<Customer> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception {
 		PageBean<Customer> pb = new PageBean<Customer>(); // pageBean对象，用于分页
-		column = "id";
-		String sql = "FROM Customer AS c WHERE c." + column + " LIKE ?";
+		String sql = "FROM Customer AS cu WHERE cu." + column + " LIKE ?";
 		Query query = HibernateSessionFactory.getSession().createQuery(sql);
 		query.setString(0, "%" + keyWord + "%");
 		query.setFirstResult((currentPage - 1) * lineSize);
 		query.setMaxResults(lineSize);
 		List<Customer> customerList = query.list();
+		if (customerList != null && customerList.size() > 0) {
+			pb.setBeanList(customerList);
+			return pb;
+		}
+		return null;
+	}
+
+	@Override
+	public PageBean<Customer> findByCusId(Integer id) throws Exception {
+		PageBean<Customer> pb = new PageBean<Customer>();
+		List<Customer> customerList = new ArrayList<Customer>();
+		Customer customer = (Customer) HibernateSessionFactory.getSession().get(Customer.class, id);
+		customerList.add(customer);
 		if (customerList != null && customerList.size() > 0) {
 			pb.setBeanList(customerList);
 			return pb;

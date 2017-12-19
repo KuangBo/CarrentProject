@@ -45,6 +45,15 @@ public class Customer implements java.io.Serializable {
 		this.trades = trades;
 	}
 
+	public Customer(Integer cusid, String cusname, String idcard, String password, String cusphone, Integer balance) {
+		this.cusid = cusid;
+		this.cusname = cusname;
+		this.idcard = idcard;
+		this.password = password;
+		this.cusphone = cusphone;
+		this.balance = balance;
+		this.trades = trades;
+	}
 	// Property accessors
 
 	public Integer getCusid() {

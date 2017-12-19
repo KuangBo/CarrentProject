@@ -13,7 +13,9 @@ public interface ICustomerService {
 
 	public boolean remove(Integer id) throws Exception;
 
-	public Customer findByCusId(Integer id) throws Exception;
+	public Customer findById(Integer id) throws Exception;
+
+	public PageBean<Customer> findByCusId(Integer id) throws Exception;
 
 	public List<Customer> list() throws Exception;
 

@@ -135,4 +135,11 @@ public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 		return (Integer) query.uniqueResult();
 	}
 
+	@Override
+	public Integer findTradeIdByCusid(Integer cusid) throws Exception {
+		String hql = "SELECT t.id FROM Trade AS t WHERE cusid= " + cusid;
+		Query query = HibernateSessionFactory.getSession().createQuery(hql);
+		return (Integer) query.uniqueResult();
+	}
+
 }

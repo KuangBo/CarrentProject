@@ -13,10 +13,10 @@ import cn.carrent.service.ICustomerService;
 
 public class CustomerServiceImpl implements ICustomerService {
 	@SuppressWarnings("unused")
-	private ICustomerDAO cuntomerDAO;
+	private ICustomerDAO customerDAO;
 
-	public void setCuntomerDAO(ICustomerDAO cuntomerDAO) {
-		this.cuntomerDAO = cuntomerDAO;
+	public void setCustomerDAO(ICustomerDAO customerDAO) {
+		this.customerDAO = customerDAO;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public Customer findByCusId(Integer id) throws Exception {
+	public Customer findById(Integer id) throws Exception {
 		Customer cus = DAOFactory.getICustomerDAOInstance().findById(id);
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
@@ -81,8 +81,17 @@ public class CustomerServiceImpl implements ICustomerService {
 			throws Exception {
 		PageBean<Customer> all = DAOFactory.getICustomerDAOInstance().findAllSplits(currentPage, lineSize, column,
 				keyWord);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return all;
+	}
+
+	@Override
+	public PageBean<Customer> findByCusId(Integer id) throws Exception {
+		PageBean<Customer> trades = DAOFactory.getICustomerDAOInstance().findByCusId(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return trades;
 	}
 
 }

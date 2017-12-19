@@ -13,7 +13,6 @@ import org.apache.tomcat.util.http.parser.Authorization;
 import com.opensymphony.xwork2.ActionSupport;
 
 import cn.carrent.factory.ServiceFactory;
-import cn.carrent.pojo.Admin;
 import cn.carrent.pojo.Car;
 import cn.carrent.pojo.Customer;
 import cn.carrent.pojo.PageBean;
@@ -73,7 +72,6 @@ public class TradeManageAction extends ActionSupport {
 	public String addTrade() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date putdate = new Date(System.currentTimeMillis());// 得到当前时间,作为上架时间
-		Admin admin = (Admin) ServletActionContext.getContext().getSession().get("admin");// 得到操作管理员
 		Trade trade = new Trade(id, cusid, cid, money, sdf.format(putdate), sdf.format(putdate), state);// 设置订单
 		boolean b = false;
 		try {
@@ -189,7 +187,7 @@ public class TradeManageAction extends ActionSupport {
 		updateTrade.setStartdate(sdf.parse(startdates));
 		updateTrade.setEnddate(sdf.parse(enddates));
 		updateTrade.setState(state);
-		Customer customer = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
+		Customer customer = ServiceFactory.getICustomerServiceInstance().findById(cusid);
 		updateTrade.setCustomer(customer);
 		Car car = ServiceFactory.getICarServiceInstance().findById(cid);
 		updateTrade.setCar(car);

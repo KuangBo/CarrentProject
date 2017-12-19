@@ -43,4 +43,5 @@
 	<import resource="applicationContext-admin-login.xml" />
  	<import resource="applicationContext-trade-manage.xml"/>
  	<import resource="applicationContext-car-manage.xml"/>
+ 	<import resource="applicationContext-customer-manage.xml"/>
 </beans>

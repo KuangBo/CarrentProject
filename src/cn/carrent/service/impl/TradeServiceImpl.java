@@ -100,4 +100,12 @@ public class TradeServiceImpl implements ITradeService {
 		return cid;
 	}
 
+	@Override
+	public Integer findCusId(Integer id) throws Exception {
+		Integer cusid = DAOFactory.getITradeDAOInstance().findTradeIdByCusid(id);
+		HibernateSessionFactory.getSession().beginTransaction().commit();
+		HibernateSessionFactory.closeSession();
+		return cusid;
+	}
+
 }
