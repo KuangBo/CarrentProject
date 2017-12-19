@@ -32,9 +32,9 @@ String indexUrl = basePath + "index.jsp";
  	String tradeId = ID.getId(9);
  	Trade vo = new Trade();
  	//在车俩的服务层增加根据车的ID查询车辆信息,返回一个Car对象
- 	Car car = ServiceFactory.getICarServiceInstance().findByCarId(Integer.parseInt(carid));
+ 	Car car = ServiceFactory.getICarServiceInstance().findById(Integer.parseInt(carid));
  	//在顾客服务层增加根据顾客ID查询顾客信息，返回一个Customer对象
- 	Customer customer = ServiceFactory.getICustomerServiceInstance().findByCusId(Integer.parseInt(cusid));
+ 	Customer customer = ServiceFactory.getICustomerServiceInstance().findById(Integer.parseInt(cusid));
  	vo.setId(Integer.parseInt(tradeId));
  	vo.setCid(Integer.parseInt(carid));
  	vo.setCusid(Integer.parseInt(cusid));

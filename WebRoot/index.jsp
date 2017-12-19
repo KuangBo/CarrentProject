@@ -99,7 +99,7 @@ String indexUrl = basePath + "index.jsp";
 	Customer cus = null;
 	if(session.getAttribute("cusid") != null) {
 		int cusid = (Integer)session.getAttribute("cusid");
-		cus = ServiceFactory.getICustomerServiceInstance().findByCusId(cusid);
+		cus = ServiceFactory.getICustomerServiceInstance().findById(cusid);
 		cusname = cus.getCusname();
 	}
 	if(cusname != null){

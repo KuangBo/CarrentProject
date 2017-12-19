@@ -32,7 +32,7 @@
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
 %>
 <%
-	String url = null;
+	String url = "pages/admin/tradeManage.jsp";
 	int currentPage = 1;
 	int lineSize = 5;
 	int pageSize = 0;	//保存总页数
