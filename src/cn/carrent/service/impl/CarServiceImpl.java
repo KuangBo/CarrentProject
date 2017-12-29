@@ -77,8 +77,9 @@ public class CarServiceImpl implements ICarService {
 	}
 
 	@Override
-	public PageBean<Car> findByCarId(Integer id) throws Exception {
-		PageBean<Car> cars = DAOFactory.getICarDAOInstance().findByCarId(id);
+	public PageBean<Car> findByCarId(Integer id, Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
+		PageBean<Car> cars = DAOFactory.getICarDAOInstance().findByCarId(id, currentPage, lineSize, column, keyWord);
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return cars;

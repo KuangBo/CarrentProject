@@ -9,7 +9,8 @@ public interface ITradeDAO extends IDAO<Integer, Trade> {
 
 	public boolean doRemoveBatch(Set<Integer> ids) throws Exception;
 
-	public PageBean<Trade> findByTradeId(Integer id) throws Exception;
+	public PageBean<Trade> findByTradeId(Integer id, Integer currentPage, Integer lineSize, String column,
+			String keyWord) throws Exception;
 
 	public Integer findTradeIdByCid(Integer cid) throws Exception;
 

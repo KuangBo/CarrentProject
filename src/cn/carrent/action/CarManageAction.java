@@ -169,12 +169,24 @@ public class CarManageAction extends ActionSupport {
 	 * @throws Exception
 	 */
 	public String queryCar() throws Exception {
-		if (cid != null) {
-			PageBean<Car> pb = carService.findByCarId(cid);
-			ServletActionContext.getRequest().setAttribute("pb", pb);
-		} else {
-			this.findCarByPage();
+		// 获取页面传递过来的当前页码数
+		if (pageCode == 0) {
+			pageCode = 1;
 		}
+		// 给pageSize,每页的记录数赋值
+		int pageSize = 5;
+		String column = "cid";
+		String keyWord = "";
+		PageBean<Car> pb = null;
+		if (cid != null) {
+			pb = carService.findByCarId(cid, pageCode, pageSize, column, keyWord);
+		} else {
+			pb = carService.listSplit(pageCode, pageSize, column, keyWord);
+		}
+		if (pb != null) {
+			pb.setUrl("queryCar.action?");
+		}
+		ServletActionContext.getRequest().setAttribute("pb", pb);
 		return "success";
 	}
 
@@ -221,10 +233,10 @@ public class CarManageAction extends ActionSupport {
 	public String deleteCar() {
 		boolean success = false;
 		try {
-			boolean flag = tradeService.remove(tradeService.findCarId(cid));
-			if (flag) {
-				success = carService.remove(cid);
+			if (tradeService.findCarId(cid) != null) {
+				tradeService.remove(tradeService.findCarId(cid));
 			}
+			success = carService.remove(cid);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} // 删除车辆

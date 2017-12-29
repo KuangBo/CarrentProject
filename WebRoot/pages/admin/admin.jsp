@@ -82,7 +82,7 @@
 						href="${pageContext.request.contextPath}/pages/admin/customerManageAction_findCustomerByPage.action"><i
 							class="glyphicon glyphicon-chevron-right"></i> 用户管理</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/pages/admin/readerTypeManageAction_getAllReaderType.action"><i
+						href="${pageContext.request.contextPath}/pages/admin/systemsetup.jsp"><i
 							class="glyphicon glyphicon-chevron-right"></i> 系统设置</a></li>
 				</ul>
 			</div>
@@ -93,12 +93,12 @@
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">图书管理</div>
+							<div class="text-muted bootstrap-admin-box-title">订单管理</div>
 						</div>
 						<div class="bootstrap-admin-panel-content">
 							<ul>
-								<li>根据图书编号、图书名称查询图书基本信息</li>
-								<li>添加、修改、删除图书</li>
+								<li>根据订单编号查询订单基本信息</li>
+								<li>添加、修改、删除订单</li>
 							</ul>
 						</div>
 					</div>
@@ -106,12 +106,12 @@
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">图书分类管理</div>
+							<div class="text-muted bootstrap-admin-box-title">车辆管理</div>
 						</div>
 						<div class="bootstrap-admin-panel-content">
 							<ul>
-								<li>根据分类名称查询图书分类信息</li>
-								<li>添加、修改、删除图书分类</li>
+								<li>根根据车辆编号查询车辆基本信息</li>
+								<li>添加、修改、删除车辆</li>
 							</ul>
 						</div>
 					</div>
@@ -121,12 +121,12 @@
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">图书借阅</div>
+							<div class="text-muted bootstrap-admin-box-title">用户管理</div>
 						</div>
 						<div class="bootstrap-admin-panel-content">
 							<ul>
-								<li>根据学号、图书编号借阅图书</li>
-								<li>展示此学号的借阅信息</li>
+								<li>根据用户ID查询用户基本信息</li>
+								<li>添加、修改、删除用户</li>
 							</ul>
 						</div>
 					</div>
@@ -134,76 +134,18 @@
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">图书归还</div>
+							<div class="text-muted bootstrap-admin-box-title">系统简介</div>
 						</div>
 						<div class="bootstrap-admin-panel-content">
 							<ul>
-								<li>根据学号、图书编号归还图书</li>
-								<li>展示此学号的借阅信息</li>
+								<li>SSH 框架</li>
+								<li>BootStrap框架 && JQuery框架</li>
+								<li>Oracle数据库</li>
+								<li>GitHub</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">借阅查询</div>
-						</div>
-						<div class="bootstrap-admin-panel-content">
-							<ul>
-								<li>展示所有学生的图书借阅信息</li>
-								<li>可根据图书编号、图书名称、学号、姓名进行查询</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">读者管理</div>
-						</div>
-						<div class="bootstrap-admin-panel-content">
-							<ul>
-								<li>根据学号、姓名查询学生基本信息</li>
-								<li>添加、修改、删除学生信息</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">逾期处理</div>
-						</div>
-						<div class="bootstrap-admin-panel-content">
-							<ul>
-								<li>逾期处理</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="text-muted bootstrap-admin-box-title">系统设置</div>
-						</div>
-						<div class="bootstrap-admin-panel-content">
-							<ul>
-								<li>系统设置</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
 		</div>
 	</div>
 

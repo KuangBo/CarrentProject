@@ -1,13 +1,9 @@
 package cn.carrent.dao.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateCallback;
 
 import cn.carrent.dao.ICustomerDAO;
 import cn.carrent.dao.util.AbstractDAOImpl;
@@ -88,6 +84,7 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 		PageBean<Customer> pb = new PageBean<Customer>(); // pageBean对象，用于分页
 		pb.setPageCode(currentPage);// 设置当前页码
 		pb.setPageSize(lineSize);// 设置页面记录数
+		pb.setTotalRecord(this.getAllCount(column, keyWord));
 		String sql = "FROM Customer AS cu WHERE cu." + column + " LIKE ?";
 		Query query = HibernateSessionFactory.getSession().createQuery(sql);
 		query.setString(0, "%" + keyWord + "%");
@@ -102,8 +99,12 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 	}
 
 	@Override
-	public PageBean<Customer> findByCusId(Integer id) throws Exception {
+	public PageBean<Customer> findByCusId(Integer id, Integer currentPage, Integer lineSize, String column,
+			String keyWord) throws Exception {
 		PageBean<Customer> pb = new PageBean<Customer>();
+		pb.setPageCode(currentPage);// 设置当前页码
+		pb.setPageSize(lineSize);// 设置页面记录数
+		pb.setTotalRecord(1);
 		List<Customer> customerList = new ArrayList<Customer>();
 		Customer customer = (Customer) HibernateSessionFactory.getSession().get(Customer.class, id);
 		customerList.add(customer);
@@ -113,33 +114,4 @@ public class CustomerDAOImpl extends AbstractDAOImpl implements ICustomerDAO {
 		}
 		return null;
 	}
-
-	/**
-	 * 
-	 * @param hql传入的hql语句
-	 * @param pageCode当前页
-	 * @param pageSize每页显示大小
-	 * @return
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List doSplitPage(final String hql, final int pageCode, final int pageSize) {
-		System.out.println("11111111111111111111");
-		// 调用模板的execute方法，参数是实现了HibernateCallback接口的匿名类，
-		return (List) super.getHibernateTemplate().execute(new HibernateCallback() {
-			// 重写其doInHibernate方法返回一个object对象，
-			public Object doInHibernate(Session session) throws HibernateException, SQLException {
-				System.out.println("22222222222222222");
-				// 创建query对象
-				System.out.println((pageCode - 1) * pageSize + "****" + "pageSize");
-				System.out.println("33333333333333");
-				Query query = session.createQuery(hql);
-				System.out.println("444444444444444444444444444");
-				query.setFirstResult((pageCode - 1) * pageSize);
-				query.setMaxResults(pageSize);
-				// 返回其执行了分布方法的list
-				return query.list();
-			}
-		});
-	}
-
 }

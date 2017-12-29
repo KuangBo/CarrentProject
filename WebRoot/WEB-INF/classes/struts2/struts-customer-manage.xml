@@ -2,7 +2,7 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
-<struts>
+<struts>	
 	<package name="customerManage" extends="struts-default" namespace="/pages/admin">
 		<action name="customerManageAction_*" method="{1}"
 			class="cn.carrent.action.CustomerManageAction">

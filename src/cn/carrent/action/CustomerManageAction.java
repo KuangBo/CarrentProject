@@ -150,12 +150,24 @@ public class CustomerManageAction extends ActionSupport {
 	}
 
 	public String queryCustomer() throws Exception {
-		if (cusid != null) {
-			PageBean<Customer> pb = customerService.findByCusId(cusid);
-			ServletActionContext.getRequest().setAttribute("pb", pb);
-		} else {
-			this.findCustomerByPage();
+		// 获取页面传递过来的当前页码数
+		if (pageCode == 0) {
+			pageCode = 1;
 		}
+		// 给pageSize,每页的记录数赋值
+		int pageSize = 5;
+		String column = "cusid";
+		String keyWord = "";
+		PageBean<Customer> pb = null;
+		if (cusid != null) {
+			pb = customerService.findByCusId(cusid, pageCode, pageSize, column, keyWord);
+		} else {
+			pb = customerService.listSplit(pageCode, pageSize, column, keyWord);
+		}
+		if (pb != null) {
+			pb.setUrl("queryCustomer.action?");
+		}
+		ServletActionContext.getRequest().setAttribute("pb", pb);
 		return "success";
 	}
 

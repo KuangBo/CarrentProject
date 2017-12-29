@@ -69,8 +69,10 @@ public class TradeServiceImpl implements ITradeService {
 	}
 
 	@Override
-	public PageBean<Trade> findByTradeId(Integer id) throws Exception {
-		PageBean<Trade> trades = DAOFactory.getITradeDAOInstance().findByTradeId(id);
+	public PageBean<Trade> findByTradeId(Integer id, Integer currentPage, Integer lineSize, String column,
+			String keyWord) throws Exception {
+		PageBean<Trade> trades = DAOFactory.getITradeDAOInstance().findByTradeId(id, currentPage, lineSize, column,
+				keyWord);
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return trades;

@@ -15,7 +15,8 @@ public interface ICarService {
 
 	public Car findById(Integer id) throws Exception;
 
-	public PageBean<Car> findByCarId(Integer id) throws Exception;
+	public PageBean<Car> findByCarId(Integer id, Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception;
 
 	public List<Car> list() throws Exception;
 

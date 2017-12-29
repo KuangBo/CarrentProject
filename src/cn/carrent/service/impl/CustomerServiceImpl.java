@@ -87,8 +87,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public PageBean<Customer> findByCusId(Integer id) throws Exception {
-		PageBean<Customer> trades = DAOFactory.getICustomerDAOInstance().findByCusId(id);
+	public PageBean<Customer> findByCusId(Integer id, Integer currentPage, Integer lineSize, String column,
+			String keyWord) throws Exception {
+		PageBean<Customer> trades = DAOFactory.getICustomerDAOInstance().findByCusId(id, currentPage, lineSize, column,
+				keyWord);
 		HibernateSessionFactory.getSession().beginTransaction().commit();
 		HibernateSessionFactory.closeSession();
 		return trades;

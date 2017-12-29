@@ -71,6 +71,9 @@ public class CarDAOImpl extends AbstractDAOImpl implements ICarDAO {
 	public PageBean<Car> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception {
 		PageBean<Car> pb = new PageBean<Car>(); // pageBean对象，用于分页
+		pb.setPageCode(currentPage);// 设置当前页码
+		pb.setPageSize(lineSize);// 设置页面记录数
+		pb.setTotalRecord(this.getAllCount(column, keyWord));
 		String sql = "FROM Car AS c WHERE c." + column + " LIKE ?";
 		Query query = HibernateSessionFactory.getSession().createQuery(sql);
 		query.setString(0, "%" + keyWord + "%");
@@ -85,8 +88,12 @@ public class CarDAOImpl extends AbstractDAOImpl implements ICarDAO {
 	}
 
 	@Override
-	public PageBean<Car> findByCarId(Integer id) throws Exception {
+	public PageBean<Car> findByCarId(Integer id, Integer currentPage, Integer lineSize, String column, String keyWord)
+			throws Exception {
 		PageBean<Car> pb = new PageBean<Car>();
+		pb.setPageCode(currentPage);// 设置当前页码
+		pb.setPageSize(lineSize);// 设置页面记录数
+		pb.setTotalRecord(1);
 		List<Car> carList = new ArrayList<Car>();
 		Car car = (Car) HibernateSessionFactory.getSession().get(Car.class, id);
 		carList.add(car);

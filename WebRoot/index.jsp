@@ -7,6 +7,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 String personUrl = basePath + "personal.jsp";
 String indexUrl = basePath + "index.jsp";
+String logout = basePath + "logout.jsp";
 %>
 <!DOCTYPE html>
 <html>
@@ -60,7 +61,7 @@ String indexUrl = basePath + "index.jsp";
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/galleryeffect.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="css/jquery.flipster.css">
-		<link rel='stylesheet' href='css/dscountdown.css' type='text/css' media='all' />
+<link rel='stylesheet' href='css/dscountdown.css' type='text/css' media='all' />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/font-awesome.css" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
@@ -95,6 +96,7 @@ String indexUrl = basePath + "index.jsp";
 		      <div class="w3ls-social-icons">
 
 <%
+	session.setAttribute("flag", true);
 	String cusname = null;
 	Customer cus = null;
 	if(session.getAttribute("cusid") != null) {
@@ -116,7 +118,7 @@ String indexUrl = basePath + "index.jsp";
 			 $("#yue").val("<%=cus.getBalance()%>");
 		}
 	</script>
-	<a style="color: white;" href="<%=indexUrl%>">退出</a>&nbsp;&nbsp;&nbsp;
+	<a style="color: white;" href="<%=logout%>">退出</a>&nbsp;&nbsp;&nbsp;
 	<!-- <a style="color: white;" href="personal.jsp?username=<%=cusname%>">个人信息</a> -->
 <%
 	} else {
@@ -147,7 +149,7 @@ String indexUrl = basePath + "index.jsp";
 					<!-- navbar-header -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
 						<ul class="nav navbar-nav navbar-right" >
-							<li ><a href="index.html" class="hvr-underline-from-center active" style="a:link{color:black;}">Home</a></li>
+							<li ><a href="<%=indexUrl %>" class="hvr-underline-from-center active" style="a:link{color:black;}">Home</a></li>
 							<li><a href="#about" class="hvr-underline-from-center scroll">About Us</a></li>
 							<li><a href="#service" class="hvr-underline-from-center scroll">Deals</a></li>
 							<li><a href="#team" class="hvr-underline-from-center scroll">Team</a></li>
@@ -330,7 +332,7 @@ String indexUrl = basePath + "index.jsp";
 				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, rds which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
 			</div>
 			<div class="col-md-6 about-right-w3layouts">
-		<iframe src=""  frameborder="0" ></iframe>
+		<iframe src="video/游侠新车发布视频_超清.mp4"  frameborder="0" ></iframe>
 
 
 			</div>
@@ -459,50 +461,7 @@ String indexUrl = basePath + "index.jsp";
 					</div>
 				</div>
 	  		</li>
-	  		<li>
-	  			<div class="about-grid-agile">
-					<div class="about-head-w3">
-						<h3>HR1</h3>
-					</div>
-					<div class="about-bottom">
-						<div class="about-bottom-image">
-							<img src="images/t1.jpg" alt=" " class="img-responsive">
-						</div>
-						<div class="about-bottom-bottom">
-								<p>Linda Carl</p>
-						<div class="agileits_social_list">
-								<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-
-							</div>
-						</div>
-
-					</div>
-				</div>
-	  			</li>
-	  			<li>
-	  			<div class="about-grid-agile">
-					<div class="about-head-w3">
-						<h3>MR1</h3>
-					</div>
-					<div class="about-bottom">
-						<div class="about-bottom-image">
-							<img src="images/t1.jpg" alt=" " class="img-responsive">
-						</div>
-						<div class="about-bottom-bottom">
-								<p>Linda Carl</p>
-						<div class="agileits_social_list">
-								<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-
-							</div>
-						</div>
-
-					</div>
-				</div>
-	  			</li>
+	  	
 		  </ul>
 		</div>
 <!-- End Flipster List -->
@@ -659,8 +618,18 @@ String indexUrl = basePath + "index.jsp";
 		<img src="images/g1.jpg" alt="image1" />
 		<div class="gal-info" id="carRental1">
 			<!--<h3>Car Rental</h3>-->
+			<%
+			if(session.getAttribute("cusid") == null){
+			%>
+				<a><input  type="button" value="Car Rental" onclick="alert('请先登陆！')" ></a>
+			<%	
+			} else {
+			%>
 			<a><input  type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=1000'" ></a>
-				<p >Ferrari is the world's leading super sports car
+			<%
+			}
+			%>
+				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
 					  arters is in modena, Italy. It was established in 1929, the founder isenzoFerrari,
@@ -677,7 +646,17 @@ String indexUrl = basePath + "index.jsp";
 		<img src="images/g2.jpg" alt="image1" />
 		<div class="gal-info" id="carRental3">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button"  value="Car Rental" onclick="window.location.href='personal.jsp?carid=1001'"  ></a>
+			<%
+			if(session.getAttribute("cusid") == null){
+			%>
+				<a><input  type="button" value="Car Rental" onclick="alert('请先登陆！')" ></a>
+			<%	
+			} else {
+			%>
+			<a><input type="button"  value="Car Rental" onclick="window.location.href='personal.jsp?carid=1001'" ></a>
+			<%
+			}
+			%>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
@@ -694,7 +673,17 @@ String indexUrl = basePath + "index.jsp";
 		<img src="images/g3.jpg" alt="image1" />
 		<div class="gal-info" id="carRental5">
 			<!--<h3>Car Rental</h3>-->
-			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=1002'"></a>
+			<%
+			if(session.getAttribute("cusid") == null){
+			%>
+				<a><input  type="button" value="Car Rental" onclick="alert('请先登陆！')" ></a>
+			<%	
+			} else {
+			%>
+			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=1002'" ></a>
+			<%
+			}
+			%>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
@@ -733,7 +722,17 @@ String indexUrl = basePath + "index.jsp";
 		<img src="images/g6.jpg" alt="image1" />
 		<div class="gal-info" id="carRental7">
 			<!--<h3>Car Rental</h3>-->
+			<%
+			if(session.getAttribute("cusid") == null){
+			%>
+				<a><input  type="button" value="Car Rental" onclick="alert('请先登陆！')" ></a>
+			<%	
+			} else {
+			%>
 			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=2000'" ></a>
+			<%
+			}
+			%>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
@@ -750,7 +749,17 @@ String indexUrl = basePath + "index.jsp";
 		<img src="images/g7.jpg" alt="image1" />
 		<div class="gal-info" id="carRental9">
 			<!--<h3>Car Rental</h3>-->
+			<%
+			if(session.getAttribute("cusid") == null){
+			%>
+				<a><input  type="button" value="Car Rental" onclick="alert('请先登陆！')" ></a>
+			<%	
+			} else {
+			%>
 			<a><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=3000'"  ></a>
+			<%
+			}
+			%>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu
@@ -767,7 +776,17 @@ String indexUrl = basePath + "index.jsp";
 		<img src="images/g8.jpg" alt="image1" />
 		<div class="gal-info" id="carRental11">
 			<!--<h3>Car Rental</h3>-->
+			<%
+			if(session.getAttribute("cusid") == null){
+			%>
+				<a><input  type="button" value="Car Rental" onclick="alert('请先登陆！')" ></a>
+			<%	
+			} else {
+			%>
 			<a"><input type="button" value="Car Rental" onclick="window.location.href='personal.jsp?carid=3001'"  ></a>
+			<%
+			}
+			%>
 				<p>Ferrari is the world's leading super sports car
 					 brand. Founded in 1929.Ferrari car adopts thehandmade, therefore the yield is
 					  very low.The yearly capacity  is only about 4000 cars. The company’s headqu

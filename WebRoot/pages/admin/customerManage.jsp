@@ -91,7 +91,7 @@
 						href="${pageContext.request.contextPath}/pages/admin/customerManageAction_findCustomerByPage.action"><i
 							class="glyphicon glyphicon-chevron-right"></i> 用户管理</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/pages/admin/readerTypeManageAction_getAllReaderType.action"><i
+						href="${pageContext.request.contextPath}/pages/admin/systemsetup.jsp"><i
 							class="glyphicon glyphicon-chevron-right"></i> 系统设置</a></li>
 				</ul>
 			</div>
@@ -223,9 +223,9 @@
 												value="#request.pb.totaPage" />页
 									</a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/admin/customerManageAction_${pb.url }pageCode=1">首页</a></li>
+										href="${pageContext.request.contextPath}/pages/admin/customerManageAction_${pb.url }pageCode=1">首页</a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/admin/customerManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li>
+										href="${pageContext.request.contextPath}/pages/admin/customerManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li>
 									<!-- 上一页 -->
 									<%-- 循环显示页码列表 --%>
 									<c:forEach begin="${begin }" end="${end }" var="i">
@@ -237,18 +237,18 @@
 											</c:when>
 											<c:otherwise>
 												<li><a
-													href="${pageContext.request.contextPath}/admin/customerManageAction_${pb.url }pageCode=${i}">${i}</a></li>
+													href="${pageContext.request.contextPath}/pages/admin/customerManageAction_${pb.url }pageCode=${i}">${i}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 									<%--如果当前页数没到总页数，即没到最后一页,则需要显示下一页 --%>
 									<c:if test="${pb.pageCode < pb.totaPage }">
 										<li><a
-											href="${pageContext.request.contextPath}/admin/customerManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
+											href="${pageContext.request.contextPath}/pages/admin/customerManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
 									</c:if>
 									<%--否则显示尾页 --%>
 									<li><a
-										href="${pageContext.request.contextPath}/admin/customerManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
+										href="${pageContext.request.contextPath}/pages/admin/customerManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
 								</ul>
 							</div>
 						</s:if>

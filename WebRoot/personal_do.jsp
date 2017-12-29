@@ -2,8 +2,8 @@
 <%@ page import="cn.carrent.pojo.*"%>
 <%@ page import="cn.carrent.util.*"%>
 <%@ page import="cn.carrent.factory.*"%>
-<%@ page import="java.text.*" %>
-<%@ page import="java.util.*" %>
+<%@ page import="java.text.*"%>
+<%@ page import="java.util.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,12 +12,12 @@ String indexUrl = basePath + "index.jsp";
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title></title>
-    
-  </head>
+<head>
+<base href="<%=basePath%>">
+
+<title></title>
+
+</head>
   
   <body>
  <%
@@ -59,6 +59,8 @@ String indexUrl = basePath + "index.jsp";
 	long t2 = d.getTimeInMillis();
 	long day = (t2-t1)/(1000*60*60*24);
 	vo.setMoney(car.getBaseprice() + car.getCarrent() * (int)day);
+ 	customer.setBalance((int)(customer.getBalance() - (car.getBaseprice() + car.getCarrent() * (int)day)));
+ 	ServiceFactory.getICustomerServiceInstance().update(customer);
 	System.out.println("id="+tradeId);
 	System.out.println("carid="+carid);
 	System.out.println("cusid="+cusid);
@@ -68,12 +70,17 @@ String indexUrl = basePath + "index.jsp";
 	System.out.println("state="+vo.getState());
  	if(ServiceFactory.getITradeServiceInstance().insert(vo)){
  %>
- 		<script type="text/javascript">
- 			alert("租车成功！");
- 			window.location = "<%=indexUrl%>";
- 		</script>
+	<script type="text/javascript">
+		alert("租车成功！");
+		window.location = "<%=indexUrl%>";
+	</script>
  <%
+ 	} else {
+ %>
+	
+ <%		
  	}
-   %>
+ %>
+
   </body>
 </html>

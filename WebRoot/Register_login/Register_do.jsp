@@ -33,6 +33,7 @@ String registerUrl = basePath + "Register_login/Register.jsp";
      	vo.setIdcard(request.getParameter("idcard"));
      	vo.setCusphone(request.getParameter("phone"));
      	vo.setCusname(request.getParameter("username"));
+     	vo.setBalance(100000);
      	vo.setPassword(MD5Util.getMD5(request.getParameter("password")));
      	if(ServiceFactory.getICustomerServiceInstance().insert(vo)){
      		msg = "注册成功！ID:" + cusid;
@@ -43,7 +44,6 @@ String registerUrl = basePath + "Register_login/Register.jsp";
      	}
       %>
  <script type="text/javascript">
- 	alert("<%=msg%>");
 	window.location = "<%=url%>";
 </script> 
   </body>

@@ -113,6 +113,8 @@ form{
     padding: .7em 3em;
     border: none;
     -webkit-appearance: none;
+    margin-left: 40px;
+    margin-right: 40px;
     background: #f74545;
     cursor: pointer;
     position: relative;
@@ -126,6 +128,50 @@ form{
 .sub-w3lsright input[type="submit"]:hover { 
     background: #14d7f5;
 } 
+.sub-w3lsright input[type="button"] {
+    color: #fff;
+    font-size: .9em;
+    outline: none;
+    padding: .7em 3em;
+    border: none;
+    -webkit-appearance: none;
+    margin-left: 40px;
+    margin-right: 40px;
+    background: #f74545;
+    cursor: pointer;
+    position: relative;
+    margin-top: 3em;
+    letter-spacing: 2px;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    transition: 0.5s all;
+    font-family: 'Reem Kufi', sans-serif;
+}
+.sub-w3lsright input[type="button"]:hover { 
+    background: #14d7f5;
+} 
+.modal-data11 input[type="button"]:hover { 
+    background: #14d7f5;
+} 
+.modal-data11 input[type="button"] {
+    color: #fff;
+    font-size: .9em;
+    outline: none;
+    padding: .7em 3em;
+    border: none;
+    -webkit-appearance: none;
+    margin-left: 40px;
+    margin-right: 40px;
+    background: blanchedalmond;
+    cursor: pointer;
+    position: relative;
+    margin-top: 1.5em;
+    letter-spacing: 2px;
+    -webkit-transition: 0.1s all;
+    -moz-transition: 0.1s all;
+    transition: 0.1s all;
+    font-family: 'Reem Kufi', sans-serif;
+}
 i.fa.fa-angle-double-right {
     position: absolute;
     top: 74%;
@@ -517,6 +563,17 @@ label.rating {
 	}
 	.sub-w3lsright input[type="submit"] {
 		font-size: .8em;
+		padding: .65em 2.5em;
+		margin-top: 2em;
+	}
+	
+	.sub-w3lsright input[type="button"] {
+		font-size: .8em;
+		padding: .65em 2.5em;
+		margin-top: 2em;
+	}
+	.modal-data11 input[type="button"]{
+			font-size: .8em;
 		padding: .65em 2.5em;
 		margin-top: 2em;
 	}

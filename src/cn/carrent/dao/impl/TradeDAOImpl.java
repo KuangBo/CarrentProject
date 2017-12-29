@@ -15,13 +15,6 @@ import cn.carrent.pojo.Trade;
 public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 	@Override
 	public boolean doCreate(Trade vo) throws Exception {
-		System.out.println(vo.getId());
-		System.out.println(vo.getMoney());
-		System.out.println(vo.getStartdate());
-		System.out.println(vo.getEnddate());
-		System.out.println(vo.getCid());
-		System.out.println(vo.getCusid());
-		System.out.println(vo.getState());
 		HibernateSessionFactory.getSession().save(vo);
 		return true;
 	}
@@ -44,8 +37,12 @@ public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 	}
 
 	@Override
-	public PageBean<Trade> findByTradeId(Integer id) throws Exception {
+	public PageBean<Trade> findByTradeId(Integer id, Integer currentPage, Integer lineSize, String column,
+			String keyWord) throws Exception {
 		PageBean<Trade> pb = new PageBean<Trade>();
+		pb.setPageCode(currentPage);// 设置当前页码
+		pb.setPageSize(lineSize);// 设置页面记录数
+		pb.setTotalRecord(1);
 		List<Trade> tradeList = new ArrayList<Trade>();
 		Trade trade = (Trade) HibernateSessionFactory.getSession().get(Trade.class, id);
 		tradeList.add(trade);
@@ -91,7 +88,9 @@ public class TradeDAOImpl extends AbstractDAOImpl implements ITradeDAO {
 	public PageBean<Trade> findAllSplits(Integer currentPage, Integer lineSize, String column, String keyWord)
 			throws Exception {
 		PageBean<Trade> pb = new PageBean<Trade>(); // pageBean对象，用于分页
-		column = "id";
+		pb.setPageCode(currentPage);// 设置当前页码
+		pb.setPageSize(lineSize);// 设置页面记录数
+		pb.setTotalRecord(this.getAllCount(column, keyWord));
 		String sql = "FROM Trade AS t WHERE t." + column + " LIKE ?";
 		Query query = HibernateSessionFactory.getSession().createQuery(sql);
 		query.setString(0, "%" + keyWord + "%");

@@ -162,12 +162,24 @@ public class TradeManageAction extends ActionSupport {
 	}
 
 	public String queryTrade() throws Exception {
-		if (id != null) {
-			PageBean<Trade> pb = tradeService.findByTradeId(id);
-			ServletActionContext.getRequest().setAttribute("pb", pb);
-		} else {
-			this.findTradeByPage();
+		// 获取页面传递过来的当前页码数
+		if (pageCode == 0) {
+			pageCode = 1;
 		}
+		// 给pageSize,每页的记录数赋值
+		int pageSize = 5;
+		String column = "id";
+		String keyWord = "";
+		PageBean<Trade> pb = null;
+		if (id != null) {
+			pb = tradeService.findByTradeId(id, pageCode, pageSize, column, keyWord);
+		} else {
+			pb = tradeService.listSplit(pageCode, pageSize, column, keyWord);
+		}
+		if (pb != null) {
+			pb.setUrl("queryTrade.action?");
+		}
+		ServletActionContext.getRequest().setAttribute("pb", pb);
 		return "success";
 	}
 
